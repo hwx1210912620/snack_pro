@@ -48,4 +48,20 @@ public interface UserService {
      * @return
      */
     public Map<String, Object> resetPassword(Long userId);
+
+    /**
+     * 查询用户所拥有的角色列表
+     * @param userId
+     * @return
+     */
+    public LayuiTableDataResult findRoleListByUserId(Long userId);
+
+    /**
+     * 为用户授权角色
+     * @param roleIds
+     * @param userId
+     * @return
+     */
+    public Map<String, Object> grantRole(String roleIds, Long userId);
+
 }

@@ -52,4 +52,20 @@
     <update id="resetPassword">
         update sudi_user set password=#{newPassword} where userId=#{userId}
     </update>
+
+    <!-- 查找该用户所拥有的角色Id列表 -->
+    <select id="findRoleByUserId" resultType="java.lang.Long">
+        select roleId from sudi_user_role where userId=#{userId}
+    </select>
+
+    <!-- 删除该用户的所有角色关系 -->
+    <delete id="deleteUserAllRole">
+        delete from sudi_user_role where userId=#{userId}
+    </delete>
+
+    <!-- 添加该用户的角色关系 -->
+    <insert id="addUserAndRole">
+        insert into sudi_user_role (userId, roleId)
+        values (#{userId}, #{roleId});
+    </insert>
 </mapper>

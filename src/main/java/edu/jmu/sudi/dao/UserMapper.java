@@ -59,4 +59,26 @@ public interface UserMapper {
      * @return
      */
     public Integer resetPassword(@Param("userId") Long userId, @Param("newPassword") String newPassword);
+
+    /**
+     * 查找该用户所拥有的角色
+     * @param userId
+     * @return
+     */
+    public List<Long> findRoleByUserId(Long userId);
+
+    /**
+     * 删除该用户的所有角色关系
+     * @param userId
+     * @return
+     */
+    public Integer deleteUserAllRole(Long userId);
+
+    /**
+     * 添加该用户的角色关系
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    public Integer addUserAndRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
 }

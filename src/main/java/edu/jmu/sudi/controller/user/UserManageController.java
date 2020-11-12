@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,7 +25,6 @@ public class UserManageController {
      */
     @RequestMapping("/list")
     public String findUserListByPage(UserVo vo){
-        System.out.println("gender = " + vo.getGender());
         LayuiTableDataResult userListByPage = userService.findUserListByPage(vo);
         return JSON.toJSONString(userListByPage);
     }
@@ -62,4 +62,26 @@ public class UserManageController {
         return JSON.toJSONString(map);
     }
 
+    /**
+     * 查找该用户所拥有的角色
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/findRole")
+    public String findRoleListByUserId(Long userId){
+        LayuiTableDataResult roleListByUserId = userService.findRoleListByUserId(userId);
+        return JSON.toJSONString(roleListByUserId);
+    }
+
+    /**
+     * 为用户授权角色
+     * @param roleIds
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/grantRole")
+    public String grantRole(String roleIds, Long userId){
+        Map<String, Object> map = userService.grantRole(roleIds, userId);
+        return JSON.toJSONString(map);
+    }
 }

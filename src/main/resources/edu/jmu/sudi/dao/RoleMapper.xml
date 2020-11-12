@@ -29,4 +29,8 @@
         where roleId=#{roleId}
     </update>
 
+    <!-- 查询所有角色列表，返回map集合 -->
+    <select id="findRoleListMap" resultType="map">
+        select * from sudi_role
+    </select>
 </mapper>

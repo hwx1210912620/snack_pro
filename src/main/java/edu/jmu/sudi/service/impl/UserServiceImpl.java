@@ -2,6 +2,7 @@ package edu.jmu.sudi.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.jmu.sudi.dao.RoleMapper;
 import edu.jmu.sudi.dao.UserMapper;
 import edu.jmu.sudi.entity.UserEntity;
 import edu.jmu.sudi.service.UserService;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     /**
      * 用户登录方法，根据用户名和密码校验用户的信息是否正确
@@ -131,6 +135,56 @@ public class UserServiceImpl implements UserService {
         }else {
             map.put(SystemConstant.FLAG, false);
             map.put(SystemConstant.MESSAGE, "用户密码重置失败");
+        }
+        return map;
+    }
+
+    /**
+     * 查询用户所拥有的角色列表
+     * @param userId
+     * @return
+     */
+    @Override
+    public LayuiTableDataResult findRoleListByUserId(Long userId) {
+        //查询所有的角色列表
+        List<Map<String, Object>> roleListMap = roleMapper.findRoleListMap();
+        //根据用户ID查询其拥有的角色
+        List<Long> roleByUserId = userMapper.findRoleByUserId(userId);
+        for (Map<String, Object> roleMap : roleListMap) {
+            roleMap.put(SystemConstant.LAY_CHECK, false);
+            for (Long roleId : roleByUserId) {
+                //遍历角色编号列表，标记用户拥有的角色
+                if (roleMap.get("roleId").equals(roleId)){
+                    roleMap.put(SystemConstant.LAY_CHECK, true);
+                    break;
+                }
+            }
+        }
+        return new LayuiTableDataResult(roleListMap);
+    }
+
+    /**
+     * 为用户授权角色
+     * @param roleIds
+     * @param userId
+     * @return
+     */
+    @Override
+    public Map<String, Object> grantRole(String roleIds, Long userId) {
+        Map<String, Object> map = new HashMap<>(16);
+        //拆分字符串，得到roleID的数组
+        String[] roleIdArray = roleIds.split(",");
+        try{
+            //每一次授权都需要删除之前该用户的所有角色关系
+            userMapper.deleteUserAllRole(userId);
+            for (String roleId : roleIdArray) {
+                //新增用户角色关系
+                userMapper.addUserAndRole(userId, Long.parseLong(roleId));
+            }
+            map.put(SystemConstant.MESSAGE, "用户角色关系授权成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put(SystemConstant.MESSAGE, "用户角色关系授权失败");
         }
         return map;
     }

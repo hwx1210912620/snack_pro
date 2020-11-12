@@ -5,6 +5,7 @@ import edu.jmu.sudi.vo.RoleVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface RoleMapper {
@@ -30,4 +31,9 @@ public interface RoleMapper {
      */
     public Integer modifyRole(RoleVo vo);
 
+    /**
+     * 查询所有角色列表，返回map集合
+     * @return
+     */
+    public List<Map<String, Object>> findRoleListMap();
 }

@@ -411,19 +411,18 @@
                     success: function(){
                         table.render({
                             elem: '#grantRoleTable',
-                            url: '${pageContext.request.contextPath}/backstage/user/findRoleList?userId=' + data.userId,
+                            url: '${pageContext.request.contextPath}/backstage/user/findRole?userId=' + data.userId,
                             content: $("#grantRoleTable"),
                             cols: [[
-                                {type: "checkbox", width: 50},
-                                {field: 'roleId', width: 120, title: '角色ID', sort: true},
-                                {field: 'roleName', width: 200, title: '角色名称'},
-                                {field: 'roleDesc', width: 200, title: '角色描述'}
+                                {type: "checkbox", width: 50, align: "center"},
+                                {field: 'roleId', width: 120, title: '角色编号', sort: true, align: "center"},
+                                {field: 'roleName', width: 160, title: '角色名称', align: "center"},
+                                {field: 'roleDesc', width: 460, title: '角色描述', align: "center"}
                             ]],
                             limits: [10, 15, 20, 25, 50, 100],
                             limit: 10,
                             page: true,
                             skin: 'line',
-
                         });
                     }
                 });
