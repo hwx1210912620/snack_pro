@@ -210,6 +210,7 @@
                             maxmin:true,
                             shadeClose: true,
                             area: ['50%', '60%'],
+                            offset:['100px', '300px'],
                             content: $("#addOrUpdateForm"),
                             success: function () {
                                 //清空表单数据
@@ -248,6 +249,7 @@
                             maxmin:true,
                             shadeClose: true,
                             area: ['50%', '60%'],
+                            offset:['100px', '300px'],
                             content: $("#addOrUpdateForm"),
                             success: function(){
                                 //表单数据回显，参数1表示lay-filter的值，参数2表示回显的数据
