@@ -31,4 +31,9 @@ public interface SystemConstant {
      * 系统默认用户的初始密码
      */
     String DEFAULTPASSWORD = "123456";
+
+    /**
+     * 用户默认的角色编号
+     */
+    Long DEFAULTROLEID = (long)1;
 }

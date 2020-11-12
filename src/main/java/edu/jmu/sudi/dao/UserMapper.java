@@ -39,11 +39,11 @@ public interface UserMapper {
     public List<UserEntity> findUserListByPage(UserVo vo);
 
     /**
-     * 后台添加用户
+     * 后台添加用户，返回添加的用户Id
      * @param vo
      * @return
      */
-    public Integer addUser(UserVo vo);
+    public Long addUser(UserVo vo);
 
     /**
      * 后台修改用户信息
@@ -81,4 +81,18 @@ public interface UserMapper {
      * @return
      */
     public Integer addUserAndRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
+
+    /**
+     * 删除该用户的角色关系
+     * @param userId
+     * @return
+     */
+    public Integer deleteUserAndRoleByUserId(Long userId);
+
+    /**
+     * 删除用户信息
+     * @param userId
+     * @return
+     */
+    public Integer deleteUser(Long userId);
 }

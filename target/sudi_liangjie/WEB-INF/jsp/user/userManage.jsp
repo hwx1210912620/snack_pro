@@ -380,6 +380,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['60%', '70%'],
+                    offset: ['100px', '250px'],
                     content: $("#grantRoleTableWindow"),
                     btn: ['<span class="layui-icon layui-icon-ok"> </span>确定', '<span class="layui-icon layui-icon-close"> </span>取消'],
                     yes: function(index, layero){ //确定按钮的回调

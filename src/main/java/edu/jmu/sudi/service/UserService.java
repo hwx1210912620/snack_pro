@@ -64,4 +64,10 @@ public interface UserService {
      */
     public Map<String, Object> grantRole(String roleIds, Long userId);
 
+    /**
+     * 删除用户信息
+     * @param userId
+     * @return
+     */
+    public Map<String, Object> deleteUser(Long userId);
 }

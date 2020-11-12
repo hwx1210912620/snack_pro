@@ -84,4 +84,15 @@ public class UserManageController {
         Map<String, Object> map = userService.grantRole(roleIds, userId);
         return JSON.toJSONString(map);
     }
+
+    /**
+     * 删除用户信息
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/delete")
+    public String deleteUser(Long userId){
+        Map<String, Object> map = userService.deleteUser(userId);
+        return JSON.toJSONString(map);
+    }
 }

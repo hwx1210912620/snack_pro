@@ -93,7 +93,12 @@ public class UserServiceImpl implements UserService {
         //设置默认的用户初始密码
         vo.setPassword(SystemConstant.DEFAULTPASSWORD);
         Map<String, Object> map = new HashMap<>(16);
-        if (userMapper.addUser(vo) >= 1){
+        //获取影响行数
+        Long effectRow = userMapper.addUser(vo);
+        //获取用户Id
+        Long userId = vo.getUserId();
+        //添加用户的默认角色关系
+        if (userId!=null && userMapper.addUserAndRole(userId, SystemConstant.DEFAULTROLEID)>=1 && effectRow>=1) {
             map.put(SystemConstant.FLAG, true);
             map.put(SystemConstant.MESSAGE, "添加用户成功");
         }else {
@@ -185,6 +190,25 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e){
             e.printStackTrace();
             map.put(SystemConstant.MESSAGE, "用户角色关系授权失败");
+        }
+        return map;
+    }
+
+    /**
+     * 删除用户信息
+     * @param userId
+     * @return
+     */
+    @Override
+    public Map<String, Object> deleteUser(Long userId) {
+        Map<String, Object> map = new HashMap<>(16);
+        //先删除该用户的角色关系
+        if (userMapper.deleteUserAndRoleByUserId(userId)>=1 && userMapper.deleteUser(userId)>=1){
+            map.put(SystemConstant.FLAG, true);
+            map.put(SystemConstant.MESSAGE, "用户信息删除成功");
+        }else {
+            map.put(SystemConstant.FLAG, false);
+            map.put(SystemConstant.MESSAGE, "用户信息删除失败");
         }
         return map;
     }

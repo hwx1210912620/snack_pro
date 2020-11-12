@@ -1,24 +1,32 @@
 package edu.jmu.sudi.test;
 
-import edu.jmu.sudi.controller.user.UserManageController;
+import edu.jmu.sudi.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Map;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:applicationContext-service.xml", "classpath:applicationContext-dao.xml"})//用配置文件形式
+//用配置文件形式
+@ContextConfiguration({"classpath:applicationContext-dao.xml",
+                        "classpath:applicationContext-service.xml",
+                        "classpath:SqlMapConfig.xml"
+                        })
 public class UserTest {
 
+    @Autowired
+    private UserService userService;
+
     /**
-     * 用户角色授权测试方法
+     * 测试删除用户
      */
     @Test
     public void test1(){
-        UserManageController controller = new UserManageController();
-        String roleListByUserId = controller.findRoleListByUserId((long) 1);
-        System.out.println(roleListByUserId);
-
+        Map<String, Object> map = userService.deleteUser((long) 14);
+        System.out.println(map);
     }
 
 }
