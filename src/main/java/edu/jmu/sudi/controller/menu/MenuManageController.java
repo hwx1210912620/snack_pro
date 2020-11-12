@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/backstage/menu")
-public class MenuController {
+public class MenuManageController {
 
     @Autowired
     private MenuService menuService;

@@ -68,4 +68,7 @@ public class MenuServiceImpl implements MenuService {
         initJson.put("menuInfo", TreeUtil.toTree(menuNodeList, 0));
         return initJson;
     }
+
+
+
 }

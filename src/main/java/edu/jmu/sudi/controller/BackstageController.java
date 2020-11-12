@@ -28,4 +28,12 @@ public class BackstageController {
         return "role/roleManage";
     }
 
+    /**
+     * 跳转到菜单管理界面
+     * @return
+     */
+    @RequestMapping("/menuManage.html")
+    public String menuManage(){
+        return "amenu/menuManage";
+    }
 }
