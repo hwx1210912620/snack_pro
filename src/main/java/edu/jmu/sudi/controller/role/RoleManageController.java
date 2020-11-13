@@ -53,4 +53,37 @@ public class RoleManageController {
         return JSON.toJSONString(map);
     }
 
+    /**
+     * 初始化该角色的菜单列表
+     * @param roleId
+     * @return
+     */
+    @RequestMapping("/initRoleMenu")
+    public String initRoleMenu(Long roleId){
+        LayuiTableDataResult layuiTableDataResult = roleService.initRoleMenu(roleId);
+        return JSON.toJSONString(layuiTableDataResult);
+    }
+
+    /**
+     * 对该角色的菜单权限进行授权
+     * @param menuIds
+     * @param roleId
+     * @return
+     */
+    @RequestMapping("/grantMenu")
+    public String grantMenu(String menuIds, Long roleId){
+        Map<String, Object> map = roleService.grantMenu(menuIds, roleId);
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 删除角色
+     * @param roleId
+     * @return
+     */
+    @RequestMapping("/delete")
+    public String deleteRole(Long roleId){
+        Map<String, Object> map = roleService.deleteRole(roleId);
+        return JSON.toJSONString(map);
+    }
 }

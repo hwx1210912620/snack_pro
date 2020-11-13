@@ -93,11 +93,16 @@
                                 </div>
 
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label"><font color="red"> * </font>菜单图标</label>
-                                    <div class="layui-input-block">
+                                    <label class="layui-form-label">菜单图标</label>
+                                    <div class="layui-input-block" style="position: relative">
                                         <%--表单隐藏域，保存选中的icon值--%>
-                                        <input type="hidden" name="icon" id="icon" lay-verify="required">
-                                        <input type="text" name="iconFa" id="iconPicker" lay-filter="iconPicker" autocomplete="off" lay-verify="required">
+                                        <input type="hidden" name="icon" id="icon">
+                                        <input type="text" name="iconFa" id="iconPicker" lay-filter="iconPicker" autocomplete="off">
+                                        <div class="layui-inline" style="position: absolute;top: 0;left:100px;">
+                                            <a class="layui-btn layui-btn-primary" lay-filter="resetIcon" id="resetIcon">
+                                                <span class="layui-icon layui-icon-refresh"></span>重置
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -175,7 +180,7 @@
                     icon: 'layui-icon-tips'
                 }],
                 cols: [[
-                    {type: "checkbox", width: 50},
+                    {type: "checkbox", width: 50, align: "center"},
                     {field: 'id', width: 120, title: '菜单编号', sort: true, align: "center"},
                     {field: 'title', width: 180, title: '菜单名称', align: "center"},
                     {field: 'href', minWidth: 200, title: '菜单地址', align: "center"},
@@ -255,28 +260,6 @@
             })
 
             /**
-             * 监听表格头部工具栏的点击事件
-             */
-            table.on("toolbar(currentTableFilter)", function (obj) {
-                if (obj.event === "add"){
-                    index = layer.open({
-                        title: "添加菜单",  //标题
-                        type: 1,
-                        content: $("#addOrUpdateForm"), //内容
-                        area: ['65%', '81%'],   //宽高
-                        offset: '50px', //快速设置距离顶部的坐标
-                        anim: 2,    //动画效果
-                        success: function(){
-                            //清空表单数据
-                            $("#dataForm")[0].reset();
-                            //添加提交请求地址
-                            url = "${pageContext.request.contextPath}/backstage/menu/add";
-                        }
-                    })
-                }
-            });
-
-            /**
              * 初始化图标选择器组件
              */
             iconPickerFa.render({
@@ -294,6 +277,32 @@
                      * 设置图表选择器的初始图标为空
                      */
                     iconPickerFa.checkIcon('iconPicker', '');
+                }
+            });
+
+            /**
+             * 监听表格头部工具栏的点击事件
+             */
+            table.on("toolbar(currentTableFilter)", function (obj) {
+                if (obj.event === "add"){
+                    index = layer.open({
+                        title: "添加菜单",  //标题
+                        type: 1,
+                        content: $("#addOrUpdateForm"), //内容
+                        area: ['65%', '65%'],   //宽高
+                        offset: ['75px', '200px'],
+                        anim: 2,    //动画效果
+                        success: function(){
+                            //清空表单数据
+                            $("#dataForm")[0].reset();
+                            selectTree.selectResetVal();
+                            $("#pid").val(null);
+                            iconPickerFa.checkIcon('iconPicker', '');
+                            $("#icon").val(null);
+                            //添加提交请求地址
+                            url = "${pageContext.request.contextPath}/backstage/menu/add";
+                        }
+                    })
                 }
             });
 
@@ -324,7 +333,17 @@
                 selectTree.selectResetVal();
                 //父级菜单隐藏域置空
                 $("#pid").val(null);
-            })
+            });
+
+            /**
+             * 重置图标选择器的选择
+             */
+            $("#resetIcon").click(function () {
+                //重置图表选择器的初始图标
+                iconPickerFa.checkIcon('iconPicker', '');
+                //icon隐藏域置空
+                $("#icon").val(null);
+            });
 
             /**
              * 监听表单清空按钮点击事件

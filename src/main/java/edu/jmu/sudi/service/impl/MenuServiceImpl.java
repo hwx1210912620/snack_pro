@@ -1,15 +1,18 @@
 package edu.jmu.sudi.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import edu.jmu.sudi.dao.MenuMapper;
 import edu.jmu.sudi.entity.MenuEntity;
 import edu.jmu.sudi.service.MenuService;
-import edu.jmu.sudi.utils.MenuNode;
-import edu.jmu.sudi.utils.TreeUtil;
+import edu.jmu.sudi.utils.*;
+import edu.jmu.sudi.vo.MenuVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +72,79 @@ public class MenuServiceImpl implements MenuService {
         return initJson;
     }
 
+    /**
+     * 加载菜单树
+     * @return
+     */
+    @Override
+    public LayuiTableDataResult loadMenuTree() {
+        //调用查询所有菜单列表的方法，得到菜单的list集合
+        List<MenuEntity> menuList = menuMapper.findMenuList();
+        //创建集合保存节点信息
+        List<TreeNode> treeNodes = new ArrayList<>();
+        //循环遍历菜单列表集合
+        for (MenuEntity menu : menuList) {
+            Boolean spread = (menu.getSpread()==null || menu.getSpread()==1) ? true : false;
+            treeNodes.add(new TreeNode(menu.getId(), menu.getPid(), menu.getTitle(), spread));
+        }
+        return new LayuiTableDataResult(treeNodes);
+    }
 
+    /**
+     * 加载菜单表格
+     * @return
+     */
+    @Override
+    public LayuiTableDataResult loadMenuTable(MenuVo vo) {
+        //设置分页信息
+        PageHelper.startPage(vo.getPage(), vo.getLimit());
+        //调用分页查询的方法
+        List<MenuEntity> menuList = menuMapper.findMenuListByPage(vo);
+        //创建分页对象，将查询到的数据放进去
+        PageInfo<MenuEntity> pageInfo = new PageInfo<>(menuList);
+        return new LayuiTableDataResult(pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    /**
+     * 新增菜单
+     * @param vo
+     * @return
+     */
+    @Override
+    public Map<String, Object> addMenu(MenuVo vo) {
+        Map<String, Object> map = new HashMap<>(16);
+        if (menuMapper.addMenu(vo) >= 1){
+            map.put(SystemConstant.FLAG, true);
+            map.put(SystemConstant.MESSAGE, "【" + vo.getTitle() + "】菜单新增成功");
+        } else {
+            map.put(SystemConstant.FLAG, false);
+            map.put(SystemConstant.MESSAGE, "【" + vo.getTitle() + "】菜单新增失败");
+        }
+        return map;
+    }
+
+    /**
+     * 修改菜单
+     * @param vo
+     * @return
+     */
+    @Override
+    public Map<String, Object> modifyMenu(MenuVo vo) {
+        Map<String, Object> map = new HashMap<>(16);
+        //不可以父级菜单就是本身，直接返回修改错误
+        if (vo.getPid().equals(vo.getId())){
+            map.put(SystemConstant.FLAG, false);
+            map.put(SystemConstant.MESSAGE, "修改菜单失败，您不可以选择本身作为父级菜单");
+            return map;
+        }
+        if (menuMapper.modifyMenu(vo) >= 1){
+            map.put(SystemConstant.FLAG, true);
+            map.put(SystemConstant.MESSAGE, "【" + vo.getTitle() + "】菜单信息修改成功");
+        } else {
+            map.put(SystemConstant.FLAG, false);
+            map.put(SystemConstant.MESSAGE, "【" + vo.getTitle() + "】菜单信息修改失败");
+        }
+        return map;
+    }
 
 }

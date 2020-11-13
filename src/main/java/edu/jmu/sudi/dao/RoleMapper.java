@@ -2,6 +2,7 @@ package edu.jmu.sudi.dao;
 
 import edu.jmu.sudi.entity.RoleEntity;
 import edu.jmu.sudi.vo.RoleVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,4 +37,33 @@ public interface RoleMapper {
      * @return
      */
     public List<Map<String, Object>> findRoleListMap();
+
+    /**
+     * 删除该角色的所有菜单权限
+     * @param roleId
+     * @return
+     */
+    public Integer deleteAllMenuByRoleId(Long roleId);
+
+    /**
+     * 对角色进行菜单授权
+     * @param roleId
+     * @param menuId
+     * @return
+     */
+    public Integer grantMenu(@Param("roleId") Long roleId, @Param("menuId") Integer menuId);
+
+    /**
+     * 查找该角色的用户数
+     * @param roleId
+     * @return
+     */
+    public Integer countUserByRoleId(Long roleId);
+
+    /**
+     * 删除角色
+     * @param roleId
+     * @return
+     */
+    public Integer deleteRole(Long roleId);
 }

@@ -70,7 +70,7 @@
                         <i class="layui-icon layui-icon-delete"></i>删除
                     </a>
                     <a class="layui-btn layui-btn-xs layui-btn-checked data-count-grant" lay-event="grant">
-                        <i class="layui-icon layui-icon-about"></i>授权
+                        <i class="layui-icon layui-icon-about"></i>授权菜单
                     </a>
                 </script>
 
@@ -139,14 +139,14 @@
                     }],
                     cols: [[
                         {type: "checkbox", width: 50},
-                        {field: 'roleId', minWidth: 80, title: '角色编号', sort: true, align: "center"},
+                        {field: 'roleId', width: 120, title: '角色编号', sort: true, align: "center"},
                         {field: 'roleName', width: 160, title: '角色名称', align: "center"},
-                        {field: 'roleDesc', minWidth: 200, title: '角色描述', align: "center"},
-                        {field: 'lastModifyBy', minWidth: 200, title: '修改人', align: "center"},
-                        {field: 'lastModifyTime', minWidth: 200, title: '修改时间', align: "center", sort:true,
+                        {field: 'roleDesc', minWidth: 300, title: '角色描述', align: "center"},
+                        {field: 'lastModifyBy', width: 160, title: '修改人', align: "center"},
+                        {field: 'lastModifyTime', width: 200, title: '修改时间', align: "center", sort:true,
                             templet:"<div>{{layui.util.toDateString(d.lastModifyTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"
                         },
-                        {title: '操作', width: 250, toolbar: '#currentTableBar', align: "center"}
+                        {title: '操作', minWidth: 250, toolbar: '#currentTableBar', align: "center"}
                     ]],
                     limits: [10, 15, 20, 25, 50, 100],
                     limit: 10,
@@ -264,7 +264,7 @@
                         return false;
                     } else if (obj.event === 'delete') {
                         var roleId = data.roleId;
-                        layer.confirm('确定要删除名为 '+data.roleName+' 的角色吗？', {icon: 3, title:'提示'}, function(index){
+                        layer.confirm('确定要删除名为<font color="#ff4500">【' + data.roleName + '】</font>的角色吗？', {icon: 3, title:'提示'}, function(index){
                             url = "${pageContext.request.contextPath}/backstage/role/delete";
                             $.post(url, {roleId: roleId}, function (result) {
                                 if (result.flag){
@@ -283,6 +283,7 @@
                             maxmin:true,
                             shadeClose: true,
                             area: ['400px', '480px'],
+                            offset: ['75px', '450px'],
                             content: $("#grantMenu"),
                             btn: ['<span class="layui-icon layui-icon-ok"> </span>确定', '<span class="layui-icon layui-icon-close"> </span>取消'],
                             yes: function(index, layero){ //确定按钮的回调
@@ -294,7 +295,7 @@
                                     }
                                     var menuIds = menuIdArray.join(",");//将数组转换为JSON格式的字符串
                                     //发送ajax的post请求
-                                    $.post("${pageContext.request.contextPath}/backstage/role/grant", {menuIds: menuIds, roleId: data.roleId}, function (result) {
+                                    $.post("${pageContext.request.contextPath}/backstage/role/grantMenu", {menuIds: menuIds, roleId: data.roleId}, function (result) {
                                         layer.msg(result.message);
                                     }, "json");
                                     layer.close(index);

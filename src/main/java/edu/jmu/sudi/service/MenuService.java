@@ -1,6 +1,8 @@
 package edu.jmu.sudi.service;
 
 import edu.jmu.sudi.dao.MenuMapper;
+import edu.jmu.sudi.utils.LayuiTableDataResult;
+import edu.jmu.sudi.vo.MenuVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,4 +16,30 @@ public interface MenuService {
      */
     public Map<String, Object> loadMenuList(HttpServletRequest request);
 
+    /**
+     * 加载菜单树
+     * @return
+     */
+    public LayuiTableDataResult loadMenuTree();
+
+    /**
+     * 加载菜单表格
+     * @param vo
+     * @return
+     */
+    public LayuiTableDataResult loadMenuTable(MenuVo vo);
+
+    /**
+     * 新增菜单
+     * @param vo
+     * @return
+     */
+    public Map<String, Object> addMenu(MenuVo vo);
+
+    /**
+     * 修改菜单
+     * @param vo
+     * @return
+     */
+    public Map<String, Object> modifyMenu(MenuVo vo);
 }

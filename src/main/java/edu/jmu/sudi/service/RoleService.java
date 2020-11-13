@@ -30,4 +30,26 @@ public interface RoleService {
      * @return
      */
     public Map<String, Object> modifyRole(RoleVo vo, HttpSession session);
+
+    /**
+     * 初始化该角色的菜单列表
+     * @param roleId
+     * @return
+     */
+    public LayuiTableDataResult initRoleMenu(Long roleId);
+
+    /**
+     * 对该角色的菜单权限进行授权
+     * @param menuIds
+     * @param roleId
+     * @return
+     */
+    public Map<String, Object> grantMenu(String menuIds, Long roleId);
+
+    /**
+     * 删除角色
+     * @param roleId
+     * @return
+     */
+    public Map<String, Object> deleteRole(Long roleId);
 }

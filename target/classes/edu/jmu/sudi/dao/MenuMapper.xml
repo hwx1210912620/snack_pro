@@ -7,4 +7,40 @@
         select * from sudi_menu
     </select>
 
+    <!-- 根绝页面条件查询菜单列表 -->
+    <select id="findMenuListByPage" resultType="edu.jmu.sudi.entity.MenuEntity" parameterType="edu.jmu.sudi.vo.MenuVo">
+        select * from sudi_menu
+        <where>
+            <if test="id!=null"> and id=#{id} or pid=#{id} </if>
+            <if test="title!=null and title!=''"> and title like concat('%', #{title}, '%') </if>
+        </where>
+        order by id
+    </select>
+
+    <!-- 新增菜单 -->
+    <insert id="addMenu">
+        insert into sudi_menu (<if test="pid!=null"> pid,</if> title, href, spread, icon)
+        values (<if test="pid!=null"> #{pid},</if> #{title}, #{href}, #{spread}, #{icon})
+    </insert>
+
+    <!-- 修改菜单 -->
+    <update id="modifyMenu">
+        update sudi_menu
+        <set>
+            <if test="pid!=null"> pid=#{pid}, </if>
+            <if test="pid==null"> pid=0, </if>
+            <if test="title!=null and title!=''"> title=#{title}, </if>
+            <if test="href!=null and href!=''"> href=#{href}, </if>
+            <if test="spread!=null"> spread=#{spread}, </if>
+            icon=#{icon},
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 查询该角色拥有的菜单列表 -->
+    <select id="findMenuIdListByRoleId" resultType="edu.jmu.sudi.entity.MenuEntity">
+        select m.* from sudi_menu m
+        inner join sudi_role_menu rm on m.id=rm.menuId
+        where roleId=#{roleId}
+    </select>
 </mapper>
