@@ -33,4 +33,25 @@
     <select id="findRoleListMap" resultType="map">
         select * from sudi_role
     </select>
+
+    <!-- 删除该角色的所有菜单权限 -->
+    <delete id="deleteAllMenuByRoleId">
+        delete from sudi_role_menu where roleId=#{roleId}
+    </delete>
+
+    <!-- 对角色进行菜单授权 -->
+    <insert id="grantMenu">
+        insert into sudi_role_menu (roleId, menuId)
+        values (#{roleId}, #{menuId})
+    </insert>
+
+    <!-- 查找该角色的用户数 -->
+    <select id="countUserByRoleId" resultType="java.lang.Integer">
+        select count(0) from sudi_user_role where roleId=#{roleId}
+    </select>
+
+    <!-- 删除角色 -->
+    <delete id="deleteRole">
+        delete from sudi_role where roleId=#{roleId}
+    </delete>
 </mapper>
