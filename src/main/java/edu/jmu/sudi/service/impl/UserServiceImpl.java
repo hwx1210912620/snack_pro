@@ -2,10 +2,13 @@ package edu.jmu.sudi.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.jmu.sudi.dao.DeliverMapper;
 import edu.jmu.sudi.dao.RoleMapper;
 import edu.jmu.sudi.dao.UserMapper;
+import edu.jmu.sudi.entity.RoleEntity;
 import edu.jmu.sudi.entity.UserEntity;
 import edu.jmu.sudi.service.UserService;
+import edu.jmu.sudi.utils.CreateCodeUtil;
 import edu.jmu.sudi.utils.LayuiTableDataResult;
 import edu.jmu.sudi.utils.SystemConstant;
 import edu.jmu.sudi.vo.UserVo;
@@ -25,6 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private DeliverMapper deliverMapper;
 
     /**
      * 用户登录方法，根据用户名和密码校验用户的信息是否正确
@@ -185,6 +191,15 @@ public class UserServiceImpl implements UserService {
             for (String roleId : roleIdArray) {
                 //新增用户角色关系
                 userMapper.addUserAndRole(userId, Long.parseLong(roleId));
+                //根据角色Id查询角色名称
+                RoleEntity role = roleMapper.findRoleByRoleId(Long.parseLong(roleId));
+                if (role!=null && role.getRoleName().equals(SystemConstant.DELIVERROLENAME)){
+                    //查找该用户是否曾经是配送员
+                    if (deliverMapper.findDeliverByUserId(userId) == 0){
+                        //添加该用户到配送员表
+                        deliverMapper.addDeliver(CreateCodeUtil.createDeliverId(), userId);
+                    }
+                }
             }
             map.put(SystemConstant.MESSAGE, "用户角色关系授权成功");
         }catch (Exception e){

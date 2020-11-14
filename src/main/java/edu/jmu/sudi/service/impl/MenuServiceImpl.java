@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.jmu.sudi.dao.MenuMapper;
 import edu.jmu.sudi.entity.MenuEntity;
+import edu.jmu.sudi.entity.UserEntity;
 import edu.jmu.sudi.service.MenuService;
 import edu.jmu.sudi.utils.*;
 import edu.jmu.sudi.vo.MenuVo;
@@ -38,9 +39,10 @@ public class MenuServiceImpl implements MenuService {
         //创建一个总的map去存放三个map
         Map<String, Object> initJson = new HashMap<>(16);
 
-        /*//调用根据用户Id查询其菜单列表的方法，得到菜单的list集合
-        //List<MenuEntity> menuList = menuMapper.findMenuListByUserId(userId);*/
-        List<MenuEntity> menuList = menuMapper.findMenuList();
+        //得到userId
+        Long userId = ((UserEntity) request.getSession().getAttribute(SystemConstant.USERLOGIN)).getUserId();
+        //调用根据用户Id查询其菜单列表的方法，得到菜单的list集合
+        List<MenuEntity> menuList = menuMapper.findMenuListByUserId(userId);
 
         //创建一个List集合去保存菜单的节点
         List<MenuNode> menuNodeList = new ArrayList<>();

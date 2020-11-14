@@ -54,4 +54,9 @@
     <delete id="deleteRole">
         delete from sudi_role where roleId=#{roleId}
     </delete>
+
+    <!-- 根据角色编号查找角色 -->
+    <select id="findRoleByRoleId" resultType="edu.jmu.sudi.entity.RoleEntity">
+        select * from sudi_role where roleId=#{roleId}
+    </select>
 </mapper>

@@ -16,6 +16,13 @@ public interface MenuMapper {
     public List<MenuEntity> findMenuList();
 
     /**
+     * 根据用户Id查询其菜单列表
+     * @param userId
+     * @return
+     */
+    public List<MenuEntity> findMenuListByUserId(Long userId);
+
+    /**
      * 根绝页面条件查询菜单列表
      * @param vo
      * @return

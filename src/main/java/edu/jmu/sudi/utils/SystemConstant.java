@@ -36,4 +36,9 @@ public interface SystemConstant {
      * 用户默认的角色编号
      */
     Long DEFAULTROLEID = (long)1;
+
+    /**
+     * 配送员的角色名称(DeliverRoleName)
+     */
+    String DELIVERROLENAME = "配送员";
 }

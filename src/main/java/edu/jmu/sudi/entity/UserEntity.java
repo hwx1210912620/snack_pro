@@ -7,6 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 用户实体类
+ * @author LiangJie
+ */
 public class UserEntity implements Serializable {
     private Long userId;
     private String username;

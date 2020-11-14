@@ -2,6 +2,10 @@ package edu.jmu.sudi.entity;
 
 import java.io.Serializable;
 
+/**
+ * 菜单实体类
+ * @author LiangJie
+ */
 public class MenuEntity implements Serializable {
     private Integer id;
     private Integer pid;

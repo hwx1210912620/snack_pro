@@ -137,16 +137,12 @@ public class RoleServiceImpl implements RoleService {
             //将菜单ID拆分出来
             String[] menuIdArr = menuIds.split(",");
             //删除该角色的所有已有菜单权限
-            Integer result = roleMapper.deleteAllMenuByRoleId(roleId);
-            if (result >= 1) {
-                for (String menuId : menuIdArr) {
-                    //对角色进行菜单授权
-                    roleMapper.grantMenu(roleId, Integer.parseInt(menuId));
-                }
-                map.put(SystemConstant.MESSAGE, "角色菜单关系授权成功");
-            }else {
-                map.put(SystemConstant.MESSAGE, "角色菜单关系授权失败");
+            roleMapper.deleteAllMenuByRoleId(roleId);
+            for (String menuId : menuIdArr) {
+                //对角色进行菜单授权
+                roleMapper.grantMenu(roleId, Integer.parseInt(menuId));
             }
+            map.put(SystemConstant.MESSAGE, "角色菜单关系授权成功");
         } catch (Exception e) {
             map.put(SystemConstant.MESSAGE, "角色菜单关系授权失败");
         }

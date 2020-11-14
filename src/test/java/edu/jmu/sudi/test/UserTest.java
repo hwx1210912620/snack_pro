@@ -1,6 +1,7 @@
 package edu.jmu.sudi.test;
 
 import edu.jmu.sudi.service.UserService;
+import edu.jmu.sudi.utils.CreateCodeUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,13 @@ public class UserTest {
         System.out.println(map);
     }
 
+    /**
+     * 测试自动生成配送员编号
+     */
+    @Test
+    public void test2(){
+        //2020 1131 9150 3370
+        //2020 1114 1504 5354
+        System.out.println(CreateCodeUtil.createDeliverId());
+    }
 }

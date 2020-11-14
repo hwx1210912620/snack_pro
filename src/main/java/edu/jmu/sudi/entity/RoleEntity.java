@@ -3,6 +3,10 @@ package edu.jmu.sudi.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 角色实体类
+ * @author LiangJie
+ */
 public class RoleEntity implements Serializable {
     private Long roleId;
     private String roleName;

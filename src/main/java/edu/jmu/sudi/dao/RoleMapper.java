@@ -66,4 +66,11 @@ public interface RoleMapper {
      * @return
      */
     public Integer deleteRole(Long roleId);
+
+    /**
+     * 根据角色编号查找角色
+     * @param roleId
+     * @return
+     */
+    public RoleEntity findRoleByRoleId(Long roleId);
 }
