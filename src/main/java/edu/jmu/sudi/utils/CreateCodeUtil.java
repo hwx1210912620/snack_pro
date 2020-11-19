@@ -14,10 +14,11 @@ public class CreateCodeUtil {
      * @return  入职的时间到毫秒+两个随机数
      */
     public static String createDeliverId(){
+        Random random = new Random();
         //获取当前时间
         Date date = new Date();
         String timeStr = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
-        int endNum = new Random().nextInt(99);
+        String endNum = random.nextInt(9) + "" + random.nextInt(9);
         return timeStr + "" + endNum;
     }
 

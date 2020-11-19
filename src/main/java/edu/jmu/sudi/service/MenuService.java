@@ -42,4 +42,11 @@ public interface MenuService {
      * @return
      */
     public Map<String, Object> modifyMenu(MenuVo vo);
+
+    /**
+     * 删除菜单
+     * @param menuId
+     * @return
+     */
+    public Map<String, Object> deleteMenu(Integer menuId);
 }

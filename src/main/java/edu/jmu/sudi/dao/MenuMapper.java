@@ -50,4 +50,18 @@ public interface MenuMapper {
      */
     public List<MenuEntity> findMenuIdListByRoleId(Long roleId);
 
+    /**
+     * 查询该菜单有多少用户在用
+     * @param menuId
+     * @return
+     */
+    public Integer countRoleByMenuId(Integer menuId);
+
+    /**
+     * 删除菜单
+     * @param menuId
+     * @return
+     */
+    public Integer deleteMenu(Integer menuId);
+
 }

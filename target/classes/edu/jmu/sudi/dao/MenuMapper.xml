@@ -52,4 +52,13 @@
         where roleId=#{roleId}
     </select>
 
+    <!-- 查询该菜单有多少用户在用 -->
+    <select id="countRoleByMenuId" resultType="java.lang.Integer">
+        select count(0) from sudi_role_menu where menuId=#{menuId}
+    </select>
+
+    <!-- 删除菜单 -->
+    <delete id="deleteMenu">
+        delete from sudi_menu where id=#{menuId}
+    </delete>
 </mapper>

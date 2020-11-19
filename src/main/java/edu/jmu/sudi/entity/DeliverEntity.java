@@ -10,7 +10,7 @@ import java.util.Date;
 public class DeliverEntity extends UserEntity implements Serializable {
     private String deliverId;
     private String realName;
-    private String imageHref;
+    private String imageUrl;
     private Integer orderCount;
     private Integer faultCount;
     private Integer finishCount;
@@ -34,12 +34,12 @@ public class DeliverEntity extends UserEntity implements Serializable {
         this.realName = realName;
     }
 
-    public String getImageHref() {
-        return imageHref;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageHref(String imageHref) {
-        this.imageHref = imageHref;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Integer getOrderCount() {
@@ -95,7 +95,7 @@ public class DeliverEntity extends UserEntity implements Serializable {
         return "DeliverEntity{" +
                 "deliverId='" + deliverId + '\'' +
                 ", realName='" + realName + '\'' +
-                ", imageHref='" + imageHref + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 ", orderCount=" + orderCount +
                 ", faultCount=" + faultCount +
                 ", finishCount=" + finishCount +

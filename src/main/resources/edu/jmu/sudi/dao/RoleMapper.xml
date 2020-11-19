@@ -59,4 +59,14 @@
     <select id="findRoleByRoleId" resultType="edu.jmu.sudi.entity.RoleEntity">
         select * from sudi_role where roleId=#{roleId}
     </select>
+
+    <!-- 根据角色名查找角色编号 -->
+    <select id="findRoleIdByRoleName" resultType="java.lang.Long">
+        select roleId from sudi_role where roleName=#{roleName}
+    </select>
+
+    <!-- 删除某个用户与某个角色的关系 -->
+    <delete id="deleteRoleAndUser">
+        delete from sudi_user_role where userId=#{userId} and roleId=#{roleId}
+    </delete>
 </mapper>

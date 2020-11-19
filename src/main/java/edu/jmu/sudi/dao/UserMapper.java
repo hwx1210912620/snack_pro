@@ -95,4 +95,18 @@ public interface UserMapper {
      * @return
      */
     public Integer deleteUser(Long userId);
+
+    /**
+     * 校验用户注册输入的用户名是否存在
+     * @param username
+     * @return
+     */
+    public Integer checkUsername(String username);
+
+    /**
+     * 用户注册
+     * @param vo
+     * @return
+     */
+    public Integer register(UserVo vo);
 }

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>后台管理-登陆</title>
+        <title>宿递-用户登录</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta http-equiv="Access-Control-Allow-Origin" content="*">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -50,6 +50,7 @@
             .footer {left:0;bottom:0;color:#fff;width:100%;position:absolute;text-align:center;line-height:30px;padding-bottom:10px;text-shadow:#000 0.1em 0.1em 0.1em;font-size:14px;}
             .padding-5 {padding:5px !important;}
             .footer a,.footer span {color:#fff;}
+            .register {font-stretch:normal;letter-spacing:0;color:#1391ff;text-decoration:none;}
             @media screen and (max-width:428px) {.login-main {width:360px !important;}
                 .login-main .login-top {width:360px !important;}
                 .login-main .login-bottom {width:360px !important;}
@@ -78,8 +79,7 @@
                         </div>
                     </div>
                     <div class="tip">
-                        <span class="icon-nocheck"></span>
-                        <span class="login-tip">保持登录</span>
+                        <a href="javascript:" class="register">没有账号？立即快速注册</a>
                         <a href="javascript:" class="forget-password">忘记密码？</a>
                     </div>
                     <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
@@ -137,6 +137,13 @@
                 }, "json");
                 return false;
             });
+
+            /**
+             * 绑定跳转注册页面的点击事件
+             */
+            $(".register").click(function () {
+                location.href = "${pageContext.request.contextPath}/register.html";
+            })
         });
     </script>
 </html>

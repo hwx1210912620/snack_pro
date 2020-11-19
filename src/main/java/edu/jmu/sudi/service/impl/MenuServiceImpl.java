@@ -149,4 +149,25 @@ public class MenuServiceImpl implements MenuService {
         return map;
     }
 
+    /**
+     * 删除菜单
+     * @param menuId
+     * @return
+     */
+    @Override
+    public Map<String, Object> deleteMenu(Integer menuId) {
+        Map<String, Object> map = new HashMap<>(16);
+        //删除菜单前先查询是否还有角色仍有使用该菜单的权限
+        if (menuMapper.countRoleByMenuId(menuId) == 0){
+            //删除菜单
+            menuMapper.deleteMenu(menuId);
+            map.put(SystemConstant.FLAG, true);
+            map.put(SystemConstant.MESSAGE, "菜单删除成功");
+        }else {
+            map.put(SystemConstant.FLAG, false);
+            map.put(SystemConstant.MESSAGE, "仍有角色拥有该菜单的使用权限，删除失败");
+        }
+        return map;
+    }
+
 }

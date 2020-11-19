@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>后台管理-登陆</title>
+        <title>宿递-用户注册</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta http-equiv="Access-Control-Allow-Origin" content="*">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -50,6 +50,8 @@
             .footer {left:0;bottom:0;color:#fff;width:100%;position:absolute;text-align:center;line-height:30px;padding-bottom:10px;text-shadow:#000 0.1em 0.1em 0.1em;font-size:14px;}
             .padding-5 {padding:5px !important;}
             .footer a,.footer span {color:#fff;}
+            .toLogin {font-stretch:normal;letter-spacing:0;color:#1391ff;text-decoration:none;}
+            .tip>a:hover{color: #777777}
             @media screen and (max-width:428px) {.login-main {width:360px !important;}
                 .login-main .login-top {width:360px !important;}
                 .login-main .login-bottom {width:360px !important;}
@@ -60,7 +62,7 @@
         <div class="main-body">
             <div class="login-main">
                 <div class="login-top">
-                    <span>宿递用户登录</span>
+                    <span>宿递用户注册</span>
                     <span class="bg1"></span>
                     <span class="bg2"></span>
                 </div>
@@ -68,22 +70,29 @@
                     <div class="center">
                         <div class="item">
                             <span class="icon icon-2"></span>
-                            <input type="text" name="username" lay-verify="required"  placeholder="请输入登录账号" maxlength="24"/>
+                            <input type="text" name="username" lay-verify="required|username"  placeholder="请设置用户名" maxlength="24" id="username"/>
                         </div>
-
                         <div class="item">
                             <span class="icon icon-3"></span>
-                            <input type="password" name="password" lay-verify="required"  placeholder="请输入密码" maxlength="20">
-                            <span class="bind-password icon icon-4"></span>
+                            <input type="password" name="password" lay-verify="required|password"  placeholder="请设置6-12位的密码" maxlength="20" id="password">
+                            <span class="bind-password icon icon-4" id="bind-password"></span>
+                        </div>
+                        <div class="item">
+                            <span class="icon icon-3"></span>
+                            <input type="password" lay-verify="required|repassword"  placeholder="请再次输入密码" maxlength="20" id="repassword">
+                            <span class="bind-password icon icon-4" id="bind-repassword"></span>
+                        </div>
+                        <div class="item">
+                            <span class="icon icon-1"></span>
+                            <input type="text" name="phone" lay-verify="required|phone" placeholder="请输入手机号" maxlength="24"/>
                         </div>
                     </div>
                     <div class="tip">
-                        <span class="icon-nocheck"></span>
-                        <span class="login-tip">保持登录</span>
+                        <a href="javascript:" class="toLogin">已有账号？立即登录</a>
                         <a href="javascript:" class="forget-password">忘记密码？</a>
                     </div>
                     <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
-                        <button class="login-btn" lay-submit="" lay-filter="login">立即登录</button>
+                        <button class="login-btn" lay-submit="" lay-filter="register">立即注册</button>
                     </div>
                 </form>
             </div>
@@ -105,13 +114,29 @@
              */
             if (top.location != self.location) top.location = self.location;
 
-            $('.bind-password').on('click', function () {
+            /**
+             * 绑定输入密码的显示小眼睛
+             */
+            $('#bind-password').on('click', function () {
                 if ($(this).hasClass('icon-5')) {
                     $(this).removeClass('icon-5');
                     $("input[name='password']").attr('type', 'password');
                 } else {
                     $(this).addClass('icon-5');
                     $("input[name='password']").attr('type', 'text');
+                }
+            });
+
+            /**
+             * 绑定再次输入密码的显示小眼睛
+             */
+            $('#bind-repassword').on('click', function () {
+                if ($(this).hasClass('icon-5')) {
+                    $(this).removeClass('icon-5');
+                    $("#repassword").attr('type', 'password');
+                } else {
+                    $(this).addClass('icon-5');
+                    $("#repassword").attr('type', 'text');
                 }
             });
 
@@ -124,10 +149,10 @@
             });
 
             /**
-             * 进行登录操作
+             * 进行注册操作
              */
-            form.on('submit(login)', function (data) {
-                $.post("${pageContext.request.contextPath}/user/login", data.field, function(result){
+            form.on('submit(register)', function (data) {
+                $.post("${pageContext.request.contextPath}/user/register", data.field, function(result){
                     console.log(data);//打印表单数据到控制台
                     if (result.loginFlag){
                         location.href = "${pageContext.request.contextPath}/index.html";
@@ -137,7 +162,43 @@
                 }, "json");
                 return false;
             });
+
+            /**
+             * 绑定跳转登录页面的点击事件
+             */
+            $(".toLogin").click(function () {
+                location.href = "${pageContext.request.contextPath}/login.html";
+            });
+
+            /**
+             * 自定义表单校验规则
+             */
+            form.verify({
+                //用户名查重校验
+                username: function(value, item) { //value：表单的值、item：表单的DOM对象
+                    var usernameFlag = true;//用户名是否可用的标识符
+                    $.post("${pageContext.request.contextPath}/user/checkUsername", {username: value}, function (result) {
+                        usernameFlag = result.flag;
+                    });
+                    if (!usernameFlag){
+                        return '用户名已存在';
+                    }
+                },
+                //密码长度校验
+                password: [
+                    /^[\S]{6,12}$/,
+                    '密码必须6到12位，且不能出现空格'
+                ],
+                //再次输入密码校验
+                repassword: function (value, item) {
+                    if (!($("#password").val() === value)){
+                        return '两次密码输入不一致';
+                    }
+                }
+            });
+
+
+
+
         });
     </script>
-</html>
-

@@ -70,4 +70,15 @@ public class MenuManageController {
         Map<String, Object> map = menuService.modifyMenu(vo);
         return JSON.toJSONString(map);
     }
+
+    /**
+     * 删除菜单
+     * @param menuId
+     * @return
+     */
+    @RequestMapping("/delete")
+    public String deleteMenu(Integer menuId){
+        Map<String, Object> map = menuService.deleteMenu(menuId);
+        return JSON.toJSONString(map);
+    }
 }

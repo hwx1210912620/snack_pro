@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> map = new HashMap<>(16);
         //获取影响行数
         Long effectRow = userMapper.addUser(vo);
-        //获取用户Id
+        //获取用户Id，这个是在xml配置文件中配置的，也是mysql的方法，将新增的Id包装回原对象中
         Long userId = vo.getUserId();
         //添加用户的默认角色关系
         if (userId!=null && userMapper.addUserAndRole(userId, SystemConstant.DEFAULTROLEID)>=1 && effectRow>=1) {
@@ -225,6 +225,48 @@ public class UserServiceImpl implements UserService {
             map.put(SystemConstant.FLAG, false);
             map.put(SystemConstant.MESSAGE, "用户信息删除失败");
         }
+        return map;
+    }
+
+    /**
+     * 校验用户注册输入的用户名是否存在
+     * @param username
+     * @return
+     */
+    @Override
+    public Map<String, Object> checkUsername(String username) {
+        Map<String, Object> map = new HashMap<>(16);
+        if (userMapper.checkUsername(username) == 0) {
+            map.put(SystemConstant.FLAG, true);
+        } else {
+            map.put(SystemConstant.FLAG, false);
+        }
+        return map;
+    }
+
+    /**
+     * 用户注册
+     * @param vo
+     * @param session
+     * @return
+     */
+    @Override
+    public Map<String, Object> register(UserVo vo, HttpSession session) {
+        Map<String, Object> map = new HashMap<>(16);
+        //加入用户基础数据
+        if (userMapper.register(vo) > 0){
+            //将用户添加基础角色
+            Long userId = vo.getUserId();
+            if (userMapper.addUserAndRole(userId, SystemConstant.DEFAULTROLEID) > 0) {
+                map.put(SystemConstant.LOGINFLAG, true);
+                //将user信息保存到session中
+                session.setAttribute(SystemConstant.USERLOGIN, vo);
+                //登录通过，保存登录成功的信息
+                userMapper.setLoginSuccessInfo(vo.getUserId());
+                return map;
+            }
+        }
+        map.put(SystemConstant.LOGINFLAG, false);
         return map;
     }
 

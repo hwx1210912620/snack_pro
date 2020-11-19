@@ -391,7 +391,7 @@
                     });
                 }else if (obj.event === "delete"){
                     layer.confirm('确定要删除<font color="red">【'+ obj.data.title +'】</font>菜单吗?',{icon: 3, title:'提示', offset: ['150px', '450px']},function(index){
-                        $.post("${pageContext.request.contextPath}/backstage/menu/delete", {id: obj.data.id}, function (result) {
+                        $.post("${pageContext.request.contextPath}/backstage/menu/delete", {menuId: obj.data.id}, function (result) {
                             if (result.flag){
                                 tableIns.reload();
                                 menuTree.reload();

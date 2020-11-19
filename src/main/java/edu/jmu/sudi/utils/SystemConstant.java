@@ -41,4 +41,15 @@ public interface SystemConstant {
      * 配送员的角色名称(DeliverRoleName)
      */
     String DELIVERROLENAME = "配送员";
+
+    /**
+     * 文件上传的路径
+     */
+    String UPLOADPATH = "D:/sudi_data/upload/";
+
+    /**
+     * 配送员的文件上传路径
+     */
+    String DELIVERPATH = "deliver/";
+
 }

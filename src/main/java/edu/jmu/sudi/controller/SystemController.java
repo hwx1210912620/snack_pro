@@ -25,7 +25,16 @@ public class SystemController {
      */
     @RequestMapping("/login.html")
     public String login(){
-        return "login/login";
+        return "user/login";
+    }
+
+    /**
+     * 跳转到注册界面
+     * @return
+     */
+    @RequestMapping("/register.html")
+    public String register(){
+        return "user/register";
     }
 
 }

@@ -70,4 +70,19 @@ public interface UserService {
      * @return
      */
     public Map<String, Object> deleteUser(Long userId);
+
+    /**
+     * 校验用户注册输入的用户名是否存在
+     * @param username
+     * @return
+     */
+    public Map<String, Object> checkUsername(String username);
+
+    /**
+     * 用户注册
+     * @param vo
+     * @param session
+     * @return
+     */
+    public Map<String, Object> register(UserVo vo, HttpSession session);
 }
