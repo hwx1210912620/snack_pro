@@ -34,6 +34,15 @@ public class BackstageController {
      */
     @RequestMapping("/menuManage.html")
     public String menuManage(){
-        return "amenu/menuManage";
+        return "menu/menuManage";
+    }
+
+    /**
+     * 跳转到配送员管理的界面
+     * @return
+     */
+    @RequestMapping("/deliverManage.html")
+    public String deliverManage(){
+        return "deliver/deliverManage";
     }
 }
