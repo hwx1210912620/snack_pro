@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface UserMapper {
@@ -109,4 +110,11 @@ public interface UserMapper {
      * @return
      */
     public Integer register(UserVo vo);
+
+    /**
+     * 查询某个用户的个人资料
+     * @param userId
+     * @return
+     */
+    public UserEntity findUserByUserId(Long userId);
 }

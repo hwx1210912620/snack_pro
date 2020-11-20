@@ -188,7 +188,6 @@
             ,type: 'date'   //指定选择的格式
         });
 
-
         var url;//提交的请求地址
         var index;//打开窗口的索引
 
@@ -206,7 +205,7 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50, align: "center"},
-                {field: 'userId', width: 102, title: '用户编号', sort: true, align: "center"},
+                {field: 'userId', width: 112, title: '用户编号', sort: true, align: "center"},
                 {field: 'username', width: 112, title: '用户名', align: "center"},
                 {field: 'phone', width: 130, title: '手机号', align: "center"},
                 {field: 'gender', width: 64, title: '性别', templet: function (d) {
@@ -225,8 +224,8 @@
                 {field: 'lastLogoutTime', width: 160, title: '上次登出时间', sort: true, align: "center",
                     templet:"<div>{{layui.util.toDateString(d.lastLogoutTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"
                 },
-                {field: 'loginCount', width: 103, title: '登录次数', align: "center", sort: true},
-                {title: '操作', width: 390, toolbar: '#currentTableBar', align: "center"}
+                {field: 'loginCount', width: 112, title: '登录次数', align: "center", sort: true},
+                {title: '操作', width: 365, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 10,

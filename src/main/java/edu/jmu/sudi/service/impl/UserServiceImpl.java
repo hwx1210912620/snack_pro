@@ -11,11 +11,14 @@ import edu.jmu.sudi.service.UserService;
 import edu.jmu.sudi.utils.CreateCodeUtil;
 import edu.jmu.sudi.utils.LayuiTableDataResult;
 import edu.jmu.sudi.utils.SystemConstant;
+import edu.jmu.sudi.utils.TemplateUtil;
 import edu.jmu.sudi.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -267,6 +270,41 @@ public class UserServiceImpl implements UserService {
             }
         }
         map.put(SystemConstant.LOGINFLAG, false);
+        return map;
+    }
+
+    /**
+     * 查询登录用户的个人资料
+     * @param userId
+     * @return
+     */
+    @Override
+    public Map<String, Object> findUserByUserId(Long userId) {
+        Map<String, Object> map = new HashMap<>(16);
+        UserEntity user = userMapper.findUserByUserId(userId);
+        map.put(SystemConstant.USERLOGIN, user);
+        return map;
+    }
+
+    /**
+     * 修改用户个人信息
+     * @param vo
+     * @param session
+     * @return
+     */
+    @Override
+    public Map<String, Object> modifyUserReception(UserVo vo, HttpSession session) {
+        Map<String, Object> map = new HashMap<>(16);
+        if (userMapper.modifyUserBackstage(vo) > 0) {
+            map.put(SystemConstant.FLAG, true);
+            UserEntity user = userMapper.findUserByUserId(vo.getUserId());
+            //重新设置session域中的登录用户信息
+            session.setAttribute(SystemConstant.USERLOGIN, user);
+            map.put(SystemConstant.MESSAGE, "信息修改成功");
+        }else {
+            map.put(SystemConstant.FLAG, false);
+            map.put(SystemConstant.MESSAGE, "信息修改失败");
+        }
         return map;
     }
 

@@ -97,4 +97,9 @@
         insert into sudi_user (username, password, phone, registerDate)
         values(#{username}, #{password}, #{phone}, NOW())
     </insert>
+
+    <!-- 查询某个用户的个人资料 -->
+    <select id="findUserByUserId" resultType="edu.jmu.sudi.entity.UserEntity">
+        select * from sudi_user where userId=#{userId}
+    </select>
 </mapper>

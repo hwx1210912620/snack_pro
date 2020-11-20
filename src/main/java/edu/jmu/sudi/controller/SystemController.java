@@ -37,4 +37,12 @@ public class SystemController {
         return "user/register";
     }
 
+    /**
+     * 跳转到个人中心界面
+     * @return
+     */
+    @RequestMapping("/userInfo.html")
+    public String userInfo(){
+        return "user/userInfo";
+    }
 }

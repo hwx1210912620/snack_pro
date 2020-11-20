@@ -1,8 +1,11 @@
 package edu.jmu.sudi.test;
 
+import com.alibaba.fastjson.JSON;
+import edu.jmu.sudi.entity.UserEntity;
 import edu.jmu.sudi.service.DeliverService;
 import edu.jmu.sudi.service.UserService;
 import edu.jmu.sudi.utils.CreateCodeUtil;
+import edu.jmu.sudi.utils.TemplateUtil;
 import edu.jmu.sudi.utils.UUIDUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,5 +67,14 @@ public class MySystemTest {
     public void test4(){
         Map<String, Object> max = deliverService.findMax();
         System.out.println(max);
+    }
+
+    /**
+     * 测试模板引擎
+     */
+    @Test
+    public void test5(){
+        //Map<String, Object> userByUserId = userService.findUserByUserId(1l);
+        //System.out.println(JSON.toJSONString(userByUserId));
     }
 }

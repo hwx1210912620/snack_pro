@@ -2,9 +2,11 @@ package edu.jmu.sudi.service;
 
 import edu.jmu.sudi.entity.UserEntity;
 import edu.jmu.sudi.utils.LayuiTableDataResult;
+import edu.jmu.sudi.utils.TemplateUtil;
 import edu.jmu.sudi.vo.UserVo;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -85,4 +87,21 @@ public interface UserService {
      * @return
      */
     public Map<String, Object> register(UserVo vo, HttpSession session);
+
+    /**
+     * 查询某个用户的个人资料
+     * @param userId
+     * @return
+     */
+    public Map<String, Object> findUserByUserId(Long userId);
+
+    /**
+     * 修改用户个人信息
+     * @param vo
+     * @param session
+     * @return
+     */
+    public Map<String, Object> modifyUserReception(UserVo vo, HttpSession session);
+
+
 }
