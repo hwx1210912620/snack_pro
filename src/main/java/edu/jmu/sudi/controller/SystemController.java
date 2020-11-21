@@ -45,4 +45,15 @@ public class SystemController {
     public String userInfo(){
         return "user/userInfo";
     }
+
+    /**
+     * 跳转到修改密码界面
+     * @return
+     */
+    @RequestMapping("/modifyPassword.html")
+    public String modifyPassword(){
+        return "user/modifyPassword";
+    }
+
+
 }

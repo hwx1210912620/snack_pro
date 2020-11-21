@@ -38,11 +38,20 @@ public class BackstageController {
     }
 
     /**
-     * 跳转到配送员管理的界面
+     * 跳转到配送员管理界面
      * @return
      */
     @RequestMapping("/deliverManage.html")
     public String deliverManage(){
         return "deliver/deliverManage";
+    }
+
+    /**
+     * 跳转到菜品类别管理界面
+     * @return
+     */
+    @RequestMapping("/foodtypeManage.html")
+    public String foodtypeManage(){
+        return "food/foodtypeManage";
     }
 }

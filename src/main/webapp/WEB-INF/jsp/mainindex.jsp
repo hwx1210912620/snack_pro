@@ -48,7 +48,6 @@
                     </ul>
 
                     <ul class="layui-nav layui-layout-right">
-
                         <li class="layui-nav-item" lay-unselect>
                             <a href="javascript:;" data-refresh="刷新"><i class="fa fa-refresh"></i></a>
                         </li>
@@ -65,7 +64,7 @@
                                     <a href="javascript:;" layuimini-content-href="${pageContext.request.contextPath}/userInfo.html" data-title="基本资料" data-icon="fa fa-gears">个人中心</a>
                                 </dd>
                                 <dd>
-                                    <a href="javascript:;" layuimini-content-href="page/user-password.html" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                                    <a href="javascript:;" id="modifyPassword" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
                                 </dd>
                                 <dd>
                                     <hr>
@@ -98,7 +97,6 @@
             <div class="layuimini-site-mobile"><i class="layui-icon"></i></div>
 
             <div class="layui-body">
-
                 <div class="layuimini-tab layui-tab-rollTool layui-tab" lay-filter="layuiminiTab" lay-allowclose="true">
                     <ul class="layui-tab-title">
                         <li class="layui-this" id="layuiminiHomeTabId" lay-id=""></li>
@@ -126,14 +124,55 @@
 
             </div>
         </div>
+
+        <%-- 修改密码弹出层 --%>
+        <div class="layui-container" style="display: none;padding: 5px;width: 100%;" id="modifyPasswordForm">
+            <form class="layui-form" style="width: 90%" id="dataForm" lay-filter="dataForm">
+                <%--表单隐藏域--%>
+                <input type="hidden" name="userId" id="userId">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><font color="red"> * </font>原始密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="oldPassword" lay-verify="required" autocomplete="off" class="layui-input" id="oldPassword">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><font color="red"> * </font>新密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="newPassword" lay-verify="required|password" autocomplete="off" class="layui-input" id="newPassword">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><font color="red"> * </font>确认密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="reNewPassword" lay-verify="required|rePassword" autocomplete="off" class="layui-input" id="reNewPassword">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-row layui-col-md12">
+                    <div class="layui-input-block" style="text-align: center">
+                        <button type="button" class="layui-btn layui-btn-checked" lay-submit lay-filter="doSubmit">
+                            <span class="layui-icon layui-icon-add-1"></span>确认修改
+                        </button>
+                        <button type="reset" class="layui-btn layui-btn-primary" lay-reset lay-filter="doReset">
+                            <span class="layui-icon layui-icon-refresh"></span>重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <script src="${pageContext.request.contextPath}/static/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
         <script src="${pageContext.request.contextPath}/static/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
         <script>
-            layui.use(['jquery', 'layer', 'miniAdmin','miniTongji'], function () {
+            layui.use(['jquery', 'layer', 'miniAdmin','miniTongji', 'form'], function () {
                 var $ = layui.jquery,
                     layer = layui.layer,
                     miniAdmin = layui.miniAdmin,
+                    form = layui.form,
                     miniTongji = layui.miniTongji;
+
+                var url;//提交的请求地址
+                var index;//打开窗口的索引
 
                 var options = {
                     iniUrl: "${pageContext.request.contextPath}/backstage/menu/loadMenuList",    // 初始化接口
@@ -148,6 +187,23 @@
                 };
                 miniAdmin.render(options);
 
+                /**
+                 * 自定义表单校验规则
+                 */
+                form.verify({
+                    //密码长度校验
+                    password: [
+                        /^[\S]{6,12}$/,
+                        '密码必须6到12位，且不能出现空格'
+                    ],
+                    //再次输入密码校验
+                    rePassword: function (value, item) {
+                        if (!($("#newPassword").val() === value)){
+                            return '两次密码输入不一致';
+                        }
+                    }
+                });
+
                 // 百度统计代码，只统计指定域名
                 miniTongji.render({
                     specific: true,
@@ -158,11 +214,53 @@
                     ],
                 });
 
+                /**
+                 * 用户退出登录
+                 */
                 $('.login-out').on("click", function () {
                     layer.confirm('确定要退出登录吗？', {icon: 3, title:'提示', area: ['240px', '160px'], offset: 't'}, function(index){
-                        location.href = "${pageContext.request.contextPath}/user/exit"
+                        location.href = "${pageContext.request.contextPath}/user/exit";
                         layer.close(index);
                     });
+                });
+
+                /**
+                 * 用户修改密码
+                 */
+                $("#modifyPassword").click(function (){
+                    index = layer.open({
+                        title: '修改密码',
+                        type: 1,
+                        shade: 0.2,
+                        maxmin:true,
+                        shadeClose: true,
+                        area: ['35%', '40%'],
+                        offset: ['180px', '520px'],
+                        content: $("#modifyPasswordForm"),
+                        success: function () {
+                            //重置表单值
+                            $("#dataForm")[0].reset();
+                            //添加的提交请求路径赋值
+                            url = "${pageContext.request.contextPath}/user/modifyPassword";
+                        }
+                    });
+                });
+
+                /**
+                 * 编写表单提交的监听事件,doSubmit是提交按钮的lay-filter的值
+                 */
+                form.on("submit(doSubmit)", function(data){
+                    //使用ajax的post请求去传递数据
+                    $.post(url, data.field, function(result){
+                        if (result.flag){
+                            //关闭当前窗口
+                            layer.close(index);
+                        }
+                        //弹出提示信息
+                        layer.msg(result.message);
+                    }, "json");
+                    //禁止页面刷新
+                    return false;
                 });
             });
         </script>

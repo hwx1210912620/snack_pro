@@ -52,4 +52,9 @@ public interface SystemConstant {
      */
     String DELIVERPATH = "deliver/";
 
+    /**
+     * 菜品类别的文件上传路径
+     */
+    String FOODTYPEPATH = "foodtype/";
+
 }

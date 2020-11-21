@@ -103,5 +103,12 @@ public interface UserService {
      */
     public Map<String, Object> modifyUserReception(UserVo vo, HttpSession session);
 
-
+    /**
+     * 用户修改密码
+     * @param oldPassword
+     * @param newPassword
+     * @param session
+     * @return
+     */
+    public Map<String, Object> modifyPassword(String oldPassword, String newPassword, HttpSession session);
 }

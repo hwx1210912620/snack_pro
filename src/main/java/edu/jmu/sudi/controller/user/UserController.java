@@ -96,4 +96,18 @@ public class UserController {
         Map<String, Object> map = userService.modifyUserReception(vo, session);
         return JSON.toJSONString(map);
     }
+
+    /**
+     * 用户修改密码
+     * @param oldPassword
+     * @param newPassword
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/modifyPassword")
+    public String modifyPassword(String oldPassword, String newPassword, HttpSession session){
+        Map<String, Object> map = userService.modifyPassword(oldPassword, newPassword, session);
+        return JSON.toJSONString(map);
+    }
 }

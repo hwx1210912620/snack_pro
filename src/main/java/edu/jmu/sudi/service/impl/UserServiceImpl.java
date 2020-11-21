@@ -308,5 +308,32 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
+    /**
+     * 用户修改密码
+     * @param oldPassword
+     * @param newPassword
+     * @param session
+     * @return
+     */
+    @Override
+    public Map<String, Object> modifyPassword(String oldPassword, String newPassword, HttpSession session) {
+        Map<String, Object> map = new HashMap<>(16);
+        String sessionPassword = ((UserEntity) session.getAttribute(SystemConstant.USERLOGIN)).getPassword();
+        Long userId = ((UserEntity) session.getAttribute(SystemConstant.USERLOGIN)).getUserId();
+        if (sessionPassword.equals(oldPassword)){
+            if (userMapper.modifyPassword(newPassword, userId) > 0) {
+                map.put(SystemConstant.FLAG, true);
+                map.put(SystemConstant.MESSAGE, "密码修改成功");
+            }else {
+                map.put(SystemConstant.FLAG, false);
+                map.put(SystemConstant.MESSAGE, "密码修改失败");
+            }
+        }else {
+            map.put(SystemConstant.FLAG, false);
+            map.put(SystemConstant.MESSAGE, "密码修改失败，原始密码输入有误");
+        }
+        return map;
+    }
+
 
 }

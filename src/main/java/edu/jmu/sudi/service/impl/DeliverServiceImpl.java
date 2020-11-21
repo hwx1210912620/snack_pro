@@ -181,7 +181,7 @@ public class DeliverServiceImpl implements DeliverService {
         Map<String, Object> map = new HashMap<>(16);
         Long deliverRoleId = roleMapper.findRoleIdByRoleName(SystemConstant.DELIVERROLENAME);
         //离职的时候需要删除其与配送员角色的关系
-        if (deliverMapper.leaveDeliver(deliverId)>0 && roleMapper.deleteRoleAndUser(userId, deliverRoleId)>0) {
+        if (roleMapper.deleteRoleAndUser(userId, deliverRoleId)>0 && deliverMapper.leaveDeliver(deliverId)>0) {
             map.put(SystemConstant.FLAG, true);
             map.put(SystemConstant.MESSAGE, "配送员离职成功");
         } else {

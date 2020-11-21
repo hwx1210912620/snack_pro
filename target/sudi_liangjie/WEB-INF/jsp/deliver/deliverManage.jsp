@@ -11,14 +11,7 @@
         <%-- 添加layui-dtree的css样式 --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/plugins/layui_ext/dtree/dtree.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/plugins/layui_ext/dtree/font/dtreefont.css">
-        <style>
-            .upload-img{
-                width: 170px;
-                height: 200px;
-                border-radius: 12px;
-                border: 1px solid rgba(0,0,0, .3);
-            }
-        </style>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/resources/css/deliverManage.css">
     </head>
     <script>
         var flag;//控制行工具栏显示的标识符
@@ -54,13 +47,13 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">手机号</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="email" autocomplete="off" class="layui-input">
+                                        <input type="text" name="phone" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">加入日期</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="phone" autocomplete="off" class="layui-input">
+                                        <input type="text" name="joinDate" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
@@ -131,9 +124,9 @@
                             <div class="layui-inline layui-col-md5">
                                 <label class="layui-form-label"><font color="red"> * </font>证件照片</label>
                                 <div class="layui-upload-list layui-col-md3 layui-col-xs5" id="imageBox">
-                                    <input type="hidden" name="imageUrl" id="imageUrl" value="/deliver/defaultImage/defaultImage.png" lay-verify="required">
+                                    <input type="hidden" name="imageUrl" id="imageUrl" value="deliver/defaultImage/defaultImage.png" lay-verify="required">
                                     <a href="javascript:void(0);">
-                                        <img class="upload-img" id="photoShow" src="/deliver/defaultImage/defaultImage.png">
+                                        <img class="upload-img" id="photoShow" src="/sudi/upload/deliver/defaultImage/defaultImage.png">
                                     </a>
                                 </div>
                             </div>
@@ -178,7 +171,7 @@
                 form = layui.form,
                 table = layui.table,
                 upload = layui.upload,
-                echarts = layui.echarts;
+                echarts = layui.echarts,
                 layer = layui.layer;
 
             // 基于准备好的dom，初始化echarts实例
@@ -310,7 +303,7 @@
                 //重置图片回显为默认的图片
                 $("#photoShow").attr("src", "/sudi/upload/deliver/defaultImage/defaultImage.png");
                 //重置隐藏域为默认值
-                $("#imageUrl").val("/deliver/defaultImage/defaultImage.png");
+                $("#imageUrl").val("deliver/defaultImage/defaultImage.png");
                 //普通输入框文本域置空
                 $("#realName").val("");
                 $("#remark").val("");
@@ -342,13 +335,11 @@
                             //添加的提交请求路径赋值
                             url = "${pageContext.request.contextPath}/backstage/deliver/add";
                             //重置默认图片
-                            $("#photoShow").attr("src", "${pageContext.request.contextPath}/static/resources/images/defaultImage.png");
+                            $("#photoShow").attr("src", "/sudi/upload/deliver/defaultImage/defaultImage.png");
+                            //重置隐藏域
+                            $("#imageUrl").val("deliver/defaultImage/defaultImage.png");
                         }
                     });
-                } else if (obj.event === 'delete') {  // 监听删除操作
-                    var checkStatus = table.checkStatus('currentTableId')
-                        , data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
                 }
             });
 

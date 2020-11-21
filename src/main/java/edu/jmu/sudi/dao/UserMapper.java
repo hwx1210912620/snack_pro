@@ -117,4 +117,12 @@ public interface UserMapper {
      * @return
      */
     public UserEntity findUserByUserId(Long userId);
+
+    /**
+     * 用户修改密码
+     * @param newPassword
+     * @param userId
+     * @return
+     */
+    public Integer modifyPassword(@Param("newPassword") String newPassword, @Param("userId") Long userId);
 }

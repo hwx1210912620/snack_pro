@@ -9,8 +9,8 @@
 
     <!-- 将用户设置为配送员 -->
     <insert id="addDeliver">
-        insert into sudi_deliver (deliverId, userId, joinDate)
-        values (#{deliverId}, #{userId}, NOW())
+        insert into sudi_deliver (deliverId, userId, joinDate, imageUrl)
+        values (#{deliverId}, #{userId}, NOW(), 'deliver/defaultImage/defaultImage.png')
     </insert>
 
     <!-- 将用户设置为配送员,传递更多的信息 -->
