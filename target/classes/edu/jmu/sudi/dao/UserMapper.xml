@@ -102,4 +102,9 @@
     <select id="findUserByUserId" resultType="edu.jmu.sudi.entity.UserEntity">
         select * from sudi_user where userId=#{userId}
     </select>
+
+    <!-- 用户修改密码 -->
+    <update id="modifyPassword">
+        update sudi_user set password=#{newPassword} where userId=#{userId}
+    </update>
 </mapper>
