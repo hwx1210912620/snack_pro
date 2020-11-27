@@ -57,4 +57,5 @@
             <bean id="loginInterceptor" class="edu.jmu.sudi.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
 </beans>

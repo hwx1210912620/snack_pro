@@ -1,12 +1,13 @@
 package edu.jmu.sudi.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 菜品类别实体类
  * @author LiangJie
  */
-public class FoodTypeEntity {
+public class FoodTypeEntity implements Serializable {
     private Long typeId;
     private String typeName;
     private String typeDesc;

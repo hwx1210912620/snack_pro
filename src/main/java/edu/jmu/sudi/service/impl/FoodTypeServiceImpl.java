@@ -174,4 +174,21 @@ public class FoodTypeServiceImpl implements FoodTypeService {
         }
         return map;
     }
+
+    /**
+     * 查询所有的菜品类别
+     * @return
+     */
+    @Override
+    public Map<String, Object> findAllFoodtype() {
+        Map<String, Object> map = new HashMap<>(16);
+        List<FoodTypeEntity> foodtypeList = foodTypeMapper.findAllFoodtype();
+        if (foodtypeList != null){
+            map.put("code", 1);
+        }else {
+            map.put("code", 2);
+        }
+        map.put("foodtypeList", foodtypeList);
+        return map;
+    }
 }

@@ -61,7 +61,7 @@ public class MenuServiceImpl implements MenuService {
         }
         //将homeInfo的数据填入对应Map中
         homeInfo.put("title", "首页");
-        homeInfo.put("href", "/backstage/desktop");
+        homeInfo.put("href", request.getContextPath() + "/desktop.html");
         //将logoInfo的数据填入对应Map中
         logoInfo.put("title", "宿递 · SUDI");
         logoInfo.put("image", request.getContextPath() + "/static/plugins/layui/images/sudilogo.png");

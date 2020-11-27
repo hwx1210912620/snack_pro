@@ -50,4 +50,10 @@ public interface FoodTypeMapper {
      * @return
      */
     public Integer onShelfFoodtype(@Param("typeId") Long typeId, @Param("username") String username);
+
+    /**
+     * 查询所有的菜品类别
+     * @return
+     */
+    public List<FoodTypeEntity> findAllFoodtype();
 }

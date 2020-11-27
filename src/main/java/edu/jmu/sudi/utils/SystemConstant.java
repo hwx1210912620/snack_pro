@@ -57,4 +57,9 @@ public interface SystemConstant {
      */
     String FOODTYPEPATH = "foodtype/";
 
+    /**
+     * 菜品SPU的文件上传路径
+     */
+    String FOODPATH = "food/";
+
 }

@@ -59,4 +59,10 @@ public interface FoodTypeService {
      * @return
      */
     public Map<String, Object> onShelfFoodtype(Long typeId, HttpSession session);
+
+    /**
+     * 查询所有的菜品类别
+     * @return
+     */
+    public Map<String, Object> findAllFoodtype();
 }

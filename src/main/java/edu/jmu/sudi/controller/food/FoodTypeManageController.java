@@ -93,4 +93,16 @@ public class FoodTypeManageController {
         return JSON.toJSONString(map);
     }
 
+    /**
+     * 查询所有的菜品类别
+     * @return
+     */
+    @RequestMapping("/findAllFoodtype")
+    public String findAllFoodtype(){
+        Map<String, Object> map = foodTypeService.findAllFoodtype();
+        return JSON.toJSONString(map);
+    }
+
+
+
 }

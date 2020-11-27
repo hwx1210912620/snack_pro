@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.jmu.sudi.dao.FoodMapper">
+
+    <!-- 根据页面条件查询菜品SPU信息列表 -->
+    <select id="findFoodListByPage" resultType="edu.jmu.sudi.entity.FoodEntity">
+        select * from sudi_view_foodSpu
+        <where>
+            <if test="foodId!=null"> and foodId=#{foodId} </if>
+            <if test="foodName!=null and foodName!=''"> and foodName like concat('%', #{foodName}, '%') </if>
+            <if test="typeId!=null"> and typeId=#{typeId} </if>
+            <if test="recommend!=null and recommend!=0"> and recommend=#{recommend} </if>
+            <if test="hotSale!=null and hotSale!=0"> and hotSale=#{hotSale} </if>
+            <if test="foodStatus!=null and foodStatus!=0"> and foodStatus=#{foodStatus} </if>
+        </where>
+    </select>
+
+    <!-- 添加菜品SPU信息 -->
+    <insert id="addFood">
+        <selectKey keyProperty="foodId" order="AFTER" resultType="java.lang.Long">
+            select last_insert_id()
+        </selectKey>
+        insert into sudi_food
+        (foodName, foodTypeId, foodIngredient, foodCookWay, foodVegon, foodDesc, foodImage, recommend, hotSale, lastModifyBy, lastModifyTime)
+        values (#{foodName},#{typeId},#{foodIngredient}, #{foodCookWay},#{foodVegon},#{foodDesc},#{foodImage},#{recommend},#{hotSale},#{lastModifyBy},NOW())
+    </insert>
+
+    <!-- 修改菜品SPU信息 -->
+    <update id="modifyFood">
+        update sudi_food
+        <set>
+            <if test="foodName!=null and foodName!=''"> foodName=#{foodName}, </if>
+            <if test="foodVegon!=null and foodVegon!=''"> foodVegon=#{foodVegon}, </if>
+            <if test="typeId!=null"> foodtypeId=#{typeId}, </if>
+            <if test="foodCookWay!=null and foodCookWay!=''"> foodCookWay=#{foodCookWay}, </if>
+            <if test="foodIngredient!=null and foodIngredient!=''"> foodIngredient=#{foodIngredient}, </if>
+            <if test="foodImage!=null and foodImage!=''"> foodImage=#{foodImage}, </if>
+            <if test="recommend!=null"> recommend=#{recommend}, </if>
+            <if test="hotSale!=null"> hotSale=#{hotSale}, </if>
+            <if test="foodDesc!=null and foodDesc!=''"> foodDesc=#{foodDesc}, </if>
+            lastModifyBy=#{lastModifyBy},
+            lastModifyTime=NOW(),
+        </set>
+        where foodId=#{foodId}
+    </update>
+
+    <!-- 菜品上架 -->
+    <update id="foodOnShelf">
+        update sudi_food set foodStatus=1, lastModifyBy=#{username}, lastModifyTime=NOW() where foodId=#{foodId}
+    </update>
+
+    <!-- 删除菜品SPU -->
+    <delete id="deleteFood">
+        delete from sudi_food where foodId=#{foodId}
+    </delete>
+
+    <!-- 菜品下架 -->
+    <update id="foodOffShelf">
+        update sudi_food set foodStatus=2, lastModifyBy=#{username}, lastModifyTime=NOW() where foodId=#{foodId}
+    </update>
+
+</mapper>

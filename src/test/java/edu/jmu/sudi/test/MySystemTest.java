@@ -1,8 +1,12 @@
 package edu.jmu.sudi.test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import edu.jmu.sudi.entity.UserEntity;
 import edu.jmu.sudi.service.DeliverService;
+import edu.jmu.sudi.service.FoodService;
 import edu.jmu.sudi.service.UserService;
 import edu.jmu.sudi.utils.CreateCodeUtil;
 import edu.jmu.sudi.utils.TemplateUtil;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +32,8 @@ public class MySystemTest {
     private UserService userService;
     @Autowired
     private DeliverService deliverService;
+    @Autowired
+    private FoodService foodService;
 
     /**
      * 测试删除用户
@@ -77,4 +84,17 @@ public class MySystemTest {
         //Map<String, Object> userByUserId = userService.findUserByUserId(1l);
         //System.out.println(JSON.toJSONString(userByUserId));
     }
+
+    /**
+     * 菜品SKU生成测试
+     */
+    @Test
+    public void test6(){
+        String str = "{\"foodData\":{\"foodId\":\"\",\"foodName\":\"asd\",\"typeId\":\"3\",\"foodVegon\":\"素菜\",\"foodCookWay\":\"sda\",\"recommend\":\"2\",\"hotSale\":\"2\",\"foodIngredient\":\"asd\",\"foodImage\":\"food/defaultImage/defaultImage.png\",\"foodDesc\":\"das\",\"foodattrId\":\"6\",\"foodvalueName\":\"\"},\"foodParam\":[{\"attrId\":\"5\",\"foodvalueArr\":[{\"foodvalueName\":\"辣\"},{\"foodvalueName\":\"不辣\"},{\"foodvalueName\":\"特辣\"}]},{\"attrId\":\"6\",\"foodvalueArr\":[{\"foodvalueName\":\"大份\"},{\"foodvalueName\":\"中份\"},{\"foodvalueName\":\"小份\"},{\"foodvalueName\":\"mini\"}]}]}";
+        JSONObject jsonObject = JSONObject.parseObject(str);
+        JSONArray foodParam = jsonObject.getJSONArray("foodParam");
+        List<Map<String, Object>> foodParamList = JSON.parseObject(foodParam.toString(), new TypeReference<List<Map<String, Object>>>() {});
+        foodService.generateSku(foodParamList, 1l, "牛肉");
+    }
+
 }

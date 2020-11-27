@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SystemController {
 
     /**
-     * 跳转到主页
+     * 跳转到主框架页
      * @return
      */
     @RequestMapping("/index.html")
@@ -55,5 +55,12 @@ public class SystemController {
         return "user/modifyPassword";
     }
 
-
+    /**
+     * 跳转到用户主界面
+     * @return
+     */
+    @RequestMapping("/desktop.html")
+    public String desktop(){
+        return "desktop";
+    }
 }

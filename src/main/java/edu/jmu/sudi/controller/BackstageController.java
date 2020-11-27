@@ -54,4 +54,22 @@ public class BackstageController {
     public String foodtypeManage(){
         return "food/foodtypeManage";
     }
+
+    /**
+     * 跳转到菜品规格组管理界面
+     * @return
+     */
+    @RequestMapping("/foodattrManage.html")
+    public String foodattrManage(){
+        return "food/foodattrManage";
+    }
+
+    /**
+     * 跳转到菜品规格组管理界面
+     * @return
+     */
+    @RequestMapping("/foodManage.html")
+    public String foodManage(){
+        return "food/foodManage";
+    }
 }
