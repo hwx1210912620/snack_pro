@@ -47,4 +47,9 @@
     <select id="findAllFoodtype" resultType="edu.jmu.sudi.entity.FoodTypeEntity">
         select * from sudi_foodtype
     </select>
+    
+    <!-- 查找所有上架类别的所有上架菜品 -->
+    <select id="findAllFoodtypeOnShelf" resultType="edu.jmu.sudi.entity.FoodTypeEntity">
+        select * from sudi_foodtype where typeStatus=1;
+    </select>
 </mapper>

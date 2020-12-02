@@ -17,4 +17,19 @@
     <delete id="deleteFoodvalueByFoodId">
         delete from sudi_foodvalue where foodId=#{foodId}
     </delete>
+    
+    <!-- 根据菜品SPU编号查找规格组编号 -->
+    <select id="findFoodattrIdByFoodId" resultType="java.lang.Long">
+        select foodattrId from sudi_foodvalue where foodId=#{foodId} limit 1 ;
+    </select>
+
+    <!-- 删除某个菜品下的某一个规格 -->
+    <delete id="deleteFoodvalue">
+        delete from sudi_foodvalue where foodId=#{foodId} and foodvalueName=#{foodvalueName}
+    </delete>
+
+    <!-- 根据菜品编号返回菜品规格信息 -->
+    <select id="findFoodvalueListByFoodId" resultType="edu.jmu.sudi.entity.FoodvalueEntity">
+        select * from sudi_view_attr_value where foodId=#{foodId};
+    </select>
 </mapper>

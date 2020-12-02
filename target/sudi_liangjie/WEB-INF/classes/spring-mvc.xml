@@ -36,11 +36,19 @@
     <bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
-                <bean id="messageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+                <bean id="messageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name = "supportedMediaTypes">
+                        <list>
+                            <value>application/json;charset=utf-8</value>
+                            <value>text/plain;charset=utf-8</value>
+                            <value>text/html;charset=utf-8</value>
+                        </list>
+                    </property>
+                </bean>
             </list>
         </property>
     </bean>
-    
+
     <!--7. 配置拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
@@ -57,4 +65,5 @@
             <bean id="loginInterceptor" class="edu.jmu.sudi.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
 </beans>

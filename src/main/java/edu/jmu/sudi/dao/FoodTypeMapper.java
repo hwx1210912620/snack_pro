@@ -56,4 +56,10 @@ public interface FoodTypeMapper {
      * @return
      */
     public List<FoodTypeEntity> findAllFoodtype();
+
+    /**
+     * 查询所有上架的菜品类别
+     * @return
+     */
+    public List<FoodTypeEntity> findAllFoodtypeOnShelf();
 }

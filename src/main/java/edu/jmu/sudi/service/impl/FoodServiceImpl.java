@@ -4,12 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import edu.jmu.sudi.dao.FoodMapper;
-import edu.jmu.sudi.dao.FoodSkuMapper;
-import edu.jmu.sudi.dao.FoodattrMapper;
-import edu.jmu.sudi.dao.FoodvalueMapper;
-import edu.jmu.sudi.entity.FoodEntity;
-import edu.jmu.sudi.entity.UserEntity;
+import edu.jmu.sudi.dao.*;
+import edu.jmu.sudi.entity.*;
 import edu.jmu.sudi.service.FoodService;
 import edu.jmu.sudi.utils.FileUploadUtil;
 import edu.jmu.sudi.utils.FoodSkuUtil;
@@ -43,6 +39,8 @@ public class FoodServiceImpl implements FoodService {
     private FoodvalueMapper foodvalueMapper;
     @Autowired
     private FoodSkuMapper foodSkuMapper;
+    @Autowired
+    private FoodTypeMapper foodTypeMapper;
 
     /**
      * 根据页面条件查询菜品SPU信息列表
@@ -252,6 +250,62 @@ public class FoodServiceImpl implements FoodService {
             map.put(SystemConstant.FLAG, false);
             map.put(SystemConstant.MESSAGE, "菜品下架失败");
         }
+        return map;
+    }
+
+    /**
+     * 根据菜品类别编号查找对应的菜品
+     * @param typeId
+     * @return
+     */
+    @Override
+    public Map<String, Object> findFoodByTypeId(Long typeId) {
+        Map<String, Object> map = new HashMap<>(16);
+        List<FoodEntity> foodByTypeId = foodMapper.findFoodByTypeId(typeId);
+        if (foodByTypeId!=null && !foodByTypeId.isEmpty()) {
+            map.put("code", 1);
+            map.put("foodList", foodByTypeId);
+        }else {
+            map.put("code", 2);
+        }
+        return map;
+    }
+
+    /**
+     * 查找所有上架类别
+     * @return
+     */
+    @Override
+    public List<FoodTypeEntity> findFoodType() {
+        List<FoodTypeEntity> foodtypeList = foodTypeMapper.findAllFoodtypeOnShelf();
+        return foodtypeList;
+    }
+
+    /**
+     * 根据类别ID查询上架菜品
+     * @param typeId
+     * @return
+     */
+    @Override
+    public List<FoodEntity> findOnshelfFoodByType(Long typeId) {
+        List<FoodEntity> foodByType = foodMapper.findOnshelfFoodByType(typeId);
+        return foodByType;
+    }
+
+    /**
+     * 根据菜品编号查询该菜品的所有信息
+     * @param foodId
+     * @return
+     */
+    @Override
+    public Map<String, Object> findFoodInfoById(Long foodId) {
+        Map<String, Object> map = new HashMap<>(16);
+        List<FoodvalueEntity> foodvalueList = foodvalueMapper.findFoodvalueListByFoodId(foodId);
+        map.put("foodvalueList", foodvalueList);
+        List<FoodSkuEntity> foodSkuList = foodSkuMapper.findFoodSkuListByFoodId(foodId);
+        map.put("foodSkuList", foodSkuList);
+        FoodEntity foodSpu = foodMapper.findFoodById(foodId);
+        map.put("foodSpu", foodSpu);
         return map;
     }
 }

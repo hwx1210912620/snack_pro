@@ -37,4 +37,25 @@ public interface FoodvalueMapper {
      */
     public Integer deleteFoodvalueByFoodId(Long foodId);
 
+    /**
+     * 根据菜品SPU编号查找规格组编号
+     * @param foodId
+     * @return
+     */
+    public Long findFoodattrIdByFoodId(Long foodId);
+
+    /**
+     * 删除某个菜品下的某一个规格
+     * @param foodId
+     * @param foodvalueName
+     * @return
+     */
+    public Integer deleteFoodvalue(@Param("foodId") Long foodId, @Param("foodvalueName") String foodvalueName);
+
+    /**
+     * 根据菜品编号返回菜品规格信息
+     * @param foodId
+     * @return
+     */
+    public List<FoodvalueEntity> findFoodvalueListByFoodId(Long foodId);
 }

@@ -22,14 +22,14 @@
             <div class="layuimini-main">
                 <div class="layui-row" style="margin-top: -10px;">
                     <%-- 左侧菜单树 --%>
-                    <div class="layui-col-md3" style="margin-top: 10px;">
+                    <div class="layui-col-md2" style="margin-top: 10px;">
                         <%-- 树节点容器开始 --%>
                         <ul id="menuTree" class="dtree" data-id="0" style="width: 240px;"></ul>
                         <%-- 树节点容器结束 --%>
                     </div>
 
                     <%-- 右侧数据表格 --%>
-                    <div class="layui-col-md9">
+                    <div class="layui-col-md10">
 
                         <%-- 表格工具栏 --%>
                         <script type="text/html" id="toolbarDemo">
@@ -181,8 +181,8 @@
                 }],
                 cols: [[
                     {type: "checkbox", width: 50, align: "center"},
-                    {field: 'id', width: 120, title: '菜单编号', sort: true, align: "center"},
-                    {field: 'title', width: 180, title: '菜单名称', align: "center"},
+                    {field: 'id', width: 112, title: '菜单编号', sort: true, align: "center"},
+                    {field: 'title', width: 140, title: '菜单名称', align: "center"},
                     {field: 'href', minWidth: 200, title: '菜单地址', align: "center"},
                     {
                         field: 'spread', width: 100, title: '是否展开', align: "center",
@@ -203,7 +203,7 @@
                             return "<i class='" + d.icon + "'></i>";
                         }
                     },
-                    {title: '操作', width: 200, toolbar: '#currentTableBar', align: "center"}
+                    {title: '操作', width: 180, toolbar: '#currentTableBar', align: "center"}
                 ]],
                 limits: [10, 15, 20, 25, 50, 100],
                 limit: 25,

@@ -2,6 +2,8 @@ package edu.jmu.sudi.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import edu.jmu.sudi.entity.FoodEntity;
+import edu.jmu.sudi.entity.FoodTypeEntity;
 import edu.jmu.sudi.utils.LayuiTableDataResult;
 import edu.jmu.sudi.vo.FoodVo;
 import org.springframework.web.multipart.MultipartFile;
@@ -79,4 +81,32 @@ public interface FoodService {
      * @return
      */
     public Map<String, Object> offShelf(Long foodId, HttpSession session);
+
+    /**
+     * 根据菜品类别编号查找对应的菜品
+     * @param typeId
+     * @return
+     */
+    public Map<String, Object> findFoodByTypeId(Long typeId);
+
+    /**
+     * 查找所有上架类别的所有上架菜品
+     * @return
+     */
+    public List<FoodTypeEntity> findFoodType();
+
+    /**
+     * 根据类别ID查询上架菜品
+     * @param typeId
+     * @return
+     */
+    public List<FoodEntity> findOnshelfFoodByType(Long typeId);
+
+    /**
+     * 根据菜品编号查询所有菜品信息
+     * @param foodId
+     * @return
+     */
+    public Map<String, Object> findFoodInfoById(Long foodId);
+
 }

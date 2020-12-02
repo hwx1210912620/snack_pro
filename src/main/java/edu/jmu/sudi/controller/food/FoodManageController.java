@@ -128,4 +128,16 @@ public class FoodManageController {
         Map<String, Object> map = foodService.offShelf(foodId, session);
         return JSON.toJSONString(map);
     }
+
+    /**
+     * 根据菜品类别编号查找对应的菜品
+     * @param typeId
+     * @return
+     */
+    @RequestMapping("/findFoodByTypeId")
+    public String findFoodByTypeId(Long typeId) {
+        Map<String, Object> foodByTypeId = foodService.findFoodByTypeId(typeId);
+        return JSON.toJSONString(foodByTypeId);
+    }
+
 }

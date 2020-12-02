@@ -18,4 +18,42 @@
         delete from sudi_foodsku where foodId=#{foodId}
     </delete>
 
+    <!-- 根据页面的信息查询菜品SKU集合 -->
+    <select id="findFoodSkuListByPage" resultType="edu.jmu.sudi.entity.FoodSkuEntity">
+        select * from sudi_view_foodsku
+        <where>
+            <if test="skuId!=null"> and skuId=#{skuId} </if>
+            <if test="skuName!=null and skuName!=''"> and skuName like concat('%', #{skuName}, '%') </if>
+            <if test="foodName!=null and foodName!=''"> and foodName like concat('%', #{foodName}, '%') </if>
+            <if test="typeId!=null and typeId!=''"> and typeId=#{typeId} </if>
+            <if test="skuPrice!=null and skuPrice!=''"> and skuPrice=#{skuPrice} </if>
+            <if test="skuStock!=null"> and skuStock=#{skuStock} </if>
+        </where>
+    </select>
+
+    <!-- 新增菜品SKU信息 -->
+    <insert id="addFoodSkuBySkuManage">
+        insert into sudi_foodsku(foodId, skuName, skuPrice<if test="skuStock!=null and skuStock!=''">, skuStock</if>)
+        values (#{foodId}, #{skuName}, #{skuPrice}<if test="skuStock!=null and skuStock!=''">, #{skuStock}</if>)
+    </insert>
+
+    <!-- 修改菜品SKU信息 -->
+    <update id="modifyFoodSku">
+        update sudi_foodsku
+        <set>
+            <if test="skuPrice!=null"> skuPrice=#{skuPrice}, </if>
+            <if test="skuStock!=null"> skuStock=#{skuStock}, </if>
+        </set>
+        where skuId=#{skuId}
+    </update>
+
+    <!-- 删除菜品SKU -->
+    <delete id="deleteFoodSku">
+        delete from sudi_foodsku where skuId=#{skuId}
+    </delete>
+
+    <!-- 根据菜品编号查询所有SKU信息 -->
+    <select id="findFoodSkuListByFoodId" resultType="edu.jmu.sudi.entity.FoodSkuEntity">
+        select * from sudi_view_foodsku where foodId=#{foodId};
+    </select>
 </mapper>

@@ -42,4 +42,14 @@
         update sudi_foodtype set typeStatus=1, lastModifyBy=#{username}, lastModifyTime=NOW()
         where typeId=#{typeId}
     </update>
+
+    <!-- 查询所有的菜品类别 -->
+    <select id="findAllFoodtype" resultType="edu.jmu.sudi.entity.FoodTypeEntity">
+        select * from sudi_foodtype
+    </select>
+    
+    <!-- 查找所有上架类别的所有上架菜品 -->
+    <select id="findAllFoodtypeOnShelf" resultType="edu.jmu.sudi.entity.FoodTypeEntity">
+        select * from sudi_foodtype where typeStatus=1;
+    </select>
 </mapper>

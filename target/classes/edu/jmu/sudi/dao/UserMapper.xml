@@ -107,4 +107,10 @@
     <update id="modifyPassword">
         update sudi_user set password=#{newPassword} where userId=#{userId}
     </update>
+
+    <!-- 修改用户积分 -->
+    <update id="modifyUserScore">
+        update sudi_user set score=score+#{change} where userId=#{userId}
+    </update>
+
 </mapper>

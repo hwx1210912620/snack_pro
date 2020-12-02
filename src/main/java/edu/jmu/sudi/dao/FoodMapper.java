@@ -57,4 +57,26 @@ public interface FoodMapper {
      * @return
      */
     public Integer foodOffShelf(@Param("foodId") Long foodId, @Param("username") String username);
+
+    /**
+     * 根据菜品类别编号查找对应的菜品
+     * @param typeId
+     * @return
+     */
+    public List<FoodEntity> findFoodByTypeId(Long typeId);
+
+    /**
+     * 根据菜品SPU编号查找
+     * @param foodId
+     * @return
+     */
+    public FoodEntity findFoodById(Long foodId);
+
+    /**
+     * 根据菜品类别查找所有上架的菜品
+     * @param typeId
+     * @return
+     */
+    public List<FoodEntity> findOnshelfFoodByType(Long typeId);
+
 }

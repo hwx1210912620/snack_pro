@@ -1,6 +1,10 @@
 package edu.jmu.sudi.dao;
 
+import edu.jmu.sudi.entity.FoodSkuEntity;
+import edu.jmu.sudi.vo.FoodSkuVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 菜品SKU持久层
@@ -29,4 +33,38 @@ public interface FoodSkuMapper {
      */
     public Integer deleteFoodSkuByFoodId(Long foodId);
 
+    /**
+     * 根据页面的信息查询菜品SKU集合
+     * @param vo
+     * @return
+     */
+    public List<FoodSkuEntity> findFoodSkuListByPage(FoodSkuVo vo);
+
+    /**
+     * 新增菜品SKU信息
+     * @param vo
+     * @return
+     */
+    public Integer addFoodSkuBySkuManage(FoodSkuVo vo);
+
+    /**
+     * 修改菜品SKU信息
+     * @param vo
+     * @return
+     */
+    public Integer modifyFoodSku(FoodSkuVo vo);
+
+    /**
+     * 删除菜品SKU
+     * @param skuId
+     * @return
+     */
+    public Integer deleteFoodSku(Long skuId);
+
+    /**
+     * 根据菜品编号查询所有SKU信息
+     * @param foodId
+     * @return
+     */
+    public List<FoodSkuEntity> findFoodSkuListByFoodId(Long foodId);
 }

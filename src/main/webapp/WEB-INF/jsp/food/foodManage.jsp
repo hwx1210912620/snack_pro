@@ -119,7 +119,7 @@
                     <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="offShelf" id="offShelf">
                         <i class="layui-icon layui-icon-pause"></i>下架
                     </a>
-                    {{# }}}
+                    {{# } }}
                 </script>
 
                 <%-- 添加或修改弹出框 --%>

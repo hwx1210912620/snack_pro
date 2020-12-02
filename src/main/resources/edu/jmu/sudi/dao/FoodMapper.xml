@@ -59,4 +59,18 @@
         update sudi_food set foodStatus=2, lastModifyBy=#{username}, lastModifyTime=NOW() where foodId=#{foodId}
     </update>
 
+    <!-- 根据菜品类别编号查找对应的菜品 -->
+    <select id="findFoodByTypeId" resultType="edu.jmu.sudi.entity.FoodEntity">
+        select * from sudi_view_foodspu where typeId=#{typeId}
+    </select>
+    
+    <!-- 根据菜品SPU编号查找 -->
+    <select id="findFoodById" resultType="edu.jmu.sudi.entity.FoodEntity">
+        select * from sudi_food where foodId=#{foodId};
+    </select>
+    
+    <!-- 根据菜品类别查找所有上架的菜品 -->
+    <select id="findOnshelfFoodByType" resultType="edu.jmu.sudi.entity.FoodEntity">
+        select * from sudi_food where foodStatus=1 and foodTypeId=#{typeId};
+    </select>
 </mapper>

@@ -65,11 +65,40 @@ public class BackstageController {
     }
 
     /**
-     * 跳转到菜品规格组管理界面
+     * 跳转到菜品SPU管理界面
      * @return
      */
     @RequestMapping("/foodManage.html")
     public String foodManage(){
         return "food/foodManage";
     }
+
+    /**
+     * 跳转到菜品SKU管理界面
+     * @return
+     */
+    @RequestMapping("/foodSkuManage.html")
+    public String foodSkuManage(){
+        return "food/foodSkuManage";
+    }
+
+    /**
+     * 跳转到优惠券类别管理界面
+     * @return
+     */
+    @RequestMapping("/ticketTypeManage.html")
+    public String ticketTypeManage() {
+        return "ticket/ticketTypeManage";
+    }
+
+    /**
+     * 跳转到优惠券领取记录管理界面
+     * @return
+     */
+    @RequestMapping("/ticketManage.html")
+    public String ticketManage(){
+        return "ticket/ticketManage";
+    }
+
+
 }

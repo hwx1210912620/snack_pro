@@ -125,4 +125,11 @@ public interface UserMapper {
      * @return
      */
     public Integer modifyPassword(@Param("newPassword") String newPassword, @Param("userId") Long userId);
+
+    /**
+     * 修改用户积分
+     * @param change
+     * @return
+     */
+    public Integer modifyUserScore(@Param("change") Integer change, @Param("userId") Long userId);
 }
