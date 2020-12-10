@@ -109,4 +109,9 @@ public interface FoodService {
      */
     public Map<String, Object> findFoodInfoById(Long foodId);
 
+    /**
+     * 查询所有上架的推荐和热销菜品
+     * @return
+     */
+    public Map<String, Object> findRecommendAndHotSaleFood();
 }

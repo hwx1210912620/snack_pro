@@ -230,5 +230,15 @@ public class DeliverServiceImpl implements DeliverService {
         return map;
     }
 
+    /**
+     * 查询正式的配送员信息(未离职且已实名)
+     * @return
+     */
+    @Override
+    public List<DeliverEntity> findFormalDeliver() {
+        List<DeliverEntity> deliverList = deliverMapper.findFormalDeliver();
+        return deliverList;
+    }
+
 
 }

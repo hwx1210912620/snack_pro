@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/reception")
 public class ReceptionController {
 
-
     /**
      * 跳转到点餐中心
      * @return
@@ -47,4 +46,57 @@ public class ReceptionController {
         return "ticket/ticketShop";
     }
 
+    /**
+     * 跳转到我的优惠券页面
+     * @return
+     */
+    @RequestMapping("/myTicket.html")
+    public String myTicket(){
+        return "ticket/myTicket";
+    }
+
+    /**
+     * 跳转到生成订单页面
+     * @return
+     */
+    @RequestMapping("/generateOrder.html")
+    public String generateOrder(){
+        return "order/generateOrder";
+    }
+
+    /**
+     * 跳转到支付成功的页面
+     * @return
+     */
+    @RequestMapping("/paySuccess.html")
+    public String paySuccess(){
+        return "shopcart/paySuccess";
+    }
+
+    /**
+     * 跳转到我的订单界面
+     * @return
+     */
+    @RequestMapping("/myOrder.html")
+    public String myOrder(){
+        return "order/myOrder";
+    }
+
+    /**
+     * 跳转到我的评论界面
+     * @return
+     */
+    @RequestMapping("/myComments.html")
+    public String myComments(){
+        return "comment/myComment";
+    }
+
+    /**
+     * 跳转到我的投诉界面
+     * @return
+     */
+    @RequestMapping("/myComplaint.html")
+    public String myComplaint(){
+        return "complaint/myComplaint";
+    }
 }

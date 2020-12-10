@@ -67,4 +67,25 @@ public interface TicketMapper {
      * @return
      */
     public Integer setOutTime(Long ticketId);
+
+    /**
+     * 查询某个用户的优惠券记录
+     * @param userId
+     * @return
+     */
+    public List<TicketEntity> findByUser(Long userId);
+
+    /**
+     * 查询该用户未使用的优惠券
+     * @param userId
+     * @return
+     */
+    public List<TicketEntity> findByUserUnuse(Long userId);
+
+    /**
+     * 将某张优惠券的状态设置为已使用
+     * @param ticketId
+     * @return
+     */
+    public Integer ticketUsed(Long ticketId);
 }

@@ -1,6 +1,7 @@
 package edu.jmu.sudi.controller.deliver;
 
 import com.alibaba.fastjson.JSON;
+import edu.jmu.sudi.entity.DeliverEntity;
 import edu.jmu.sudi.service.DeliverService;
 import edu.jmu.sudi.utils.LayuiTableDataResult;
 import edu.jmu.sudi.vo.DeliverVo;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -103,5 +105,15 @@ public class DeliverManageController {
     public String findMax(){
         Map<String, Object> max = deliverService.findMax();
         return JSON.toJSONString(max);
+    }
+
+    /**
+     * 查询正式的配送员信息(未离职且已实名)
+     * @return
+     */
+    @RequestMapping("/findFormalDeliver")
+    public String findFormalDeliver(){
+        List<DeliverEntity> formalDeliver = deliverService.findFormalDeliver();
+        return JSON.toJSONString(formalDeliver);
     }
 }

@@ -5,9 +5,8 @@ import edu.jmu.sudi.entity.FoodEntity;
 import edu.jmu.sudi.entity.FoodTypeEntity;
 import edu.jmu.sudi.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
  * 前台点餐中心控制器
  * @author LiangJie
  */
-@Controller
+@RestController
 @RequestMapping("/reception/food")
 public class FoodController {
 
@@ -27,7 +26,6 @@ public class FoodController {
      * 查找所有上架类别的所有上架菜品
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/findFoodType", produces = "application/json;charset=utf-8")
     public String findFood(){
         List<FoodTypeEntity> foodTypeList = foodService.findFoodType();
@@ -39,7 +37,6 @@ public class FoodController {
      * @param typeId
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/findFood", produces = "application/json;charset=utf-8")
     public String findOnshelfFoodByType(Long typeId){
         List<FoodEntity> onshelfFoodByType = foodService.findOnshelfFoodByType(typeId);
@@ -51,11 +48,20 @@ public class FoodController {
      * @param foodId
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "/findFoodInfo", produces = "application/json;charset=utf-8")
     public String findFoodInfoById(Long foodId){
         Map<String, Object> foodInfo = foodService.findFoodInfoById(foodId);
         return JSON.toJSONString(foodInfo);
+    }
+
+    /**
+     * 查询所有上架的推荐和热销菜品
+     * @return
+     */
+    @RequestMapping(value = "/findRecommendAndHotSaleFood", produces = "application/json;charset=utf-8")
+    public String findRecommendAndHotSaleFood(){
+        Map<String, Object> map = foodService.findRecommendAndHotSaleFood();
+        return JSON.toJSONString(map);
     }
 
 }

@@ -1,9 +1,11 @@
 package edu.jmu.sudi.service;
 
+import edu.jmu.sudi.entity.DeliverEntity;
 import edu.jmu.sudi.utils.LayuiTableDataResult;
 import edu.jmu.sudi.vo.DeliverVo;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,4 +69,10 @@ public interface DeliverService {
      * @return
      */
     public Map<String, Object> findMax();
+
+    /**
+     * 查询正式的配送员信息(未离职且已实名)
+     * @return
+     */
+    public List<DeliverEntity> findFormalDeliver();
 }

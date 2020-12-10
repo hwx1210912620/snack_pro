@@ -164,4 +164,55 @@ public class TicketServiceImpl implements TicketService {
         }
         return map;
     }
+
+    /**
+     * 查询某个用户的优惠券记录
+     * @param session
+     * @return
+     */
+    @Override
+    public Map<String, Object> findByUser(HttpSession session) {
+        Map<String, Object> map = new HashMap<>(16);
+        Long userId = ((UserEntity) session.getAttribute(SystemConstant.USERLOGIN)).getUserId();
+        List<TicketEntity> ticketList = ticketMapper.findByUser(userId);
+        if (ticketList != null) {
+            map.put(SystemConstant.FLAG, true);
+            map.put("ticketList", ticketList);
+        }else {
+            map.put(SystemConstant.FLAG, false);
+        }
+        return map;
+    }
+
+    /**
+     * 查询该用户未使用的优惠券
+     * @param session
+     * @return
+     */
+    @Override
+    public Map<String, Object> findByUserUnuse(HttpSession session) {
+        Map<String, Object> map = new HashMap<>(16);
+        Long userId = ((UserEntity) session.getAttribute(SystemConstant.USERLOGIN)).getUserId();
+        List<TicketEntity> ticketList = ticketMapper.findByUserUnuse(userId);
+        if (ticketList != null) {
+            map.put(SystemConstant.FLAG, true);
+            map.put("ticketList", ticketList);
+        }else {
+            map.put(SystemConstant.FLAG, false);
+        }
+        return map;
+    }
+
+    /**
+     * 根据优惠券编号查询优惠券
+     * @param ticketId
+     * @return
+     */
+    @Override
+    public Map<String, Object> findTicketById(Long ticketId) {
+        Map<String, Object> map = new HashMap<>(16);
+        TicketEntity ticket = ticketMapper.findTicketById(ticketId);
+        map.put("ticket", ticket);
+        return map;
+    }
 }

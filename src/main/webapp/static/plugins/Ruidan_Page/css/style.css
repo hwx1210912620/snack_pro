@@ -3475,8 +3475,8 @@ div.flicking_con a.on {
 
 .fuk {
 	display: block;
-	padding-top: 8px;
-	padding-bottom: 32px;
+	padding-top: 18px;
+	padding-bottom: 18px;
 	border-bottom: 1px solid #e3e3e3;
 }
 
@@ -3501,7 +3501,7 @@ div.flicking_con a.on {
 
 .dizk {
 	display: block;
-	padding: 32px 0 22px;
+	padding: 18px 0 8px;
 	margin-bottom: 25px;
 	border-bottom: 1px solid #e3e3e3;
 }
@@ -3564,12 +3564,14 @@ div.flicking_con a.on {
 	font-size: 14px;
 	line-height: 32px;
 	color: #434343;
+	float:right;
 }
 
 .fu-you3 {
 	font-size: 32px;
 	line-height: 48px;
 	color: #e01222;
+	float:right;
 }
 
 .fu-you1 input {
@@ -7635,7 +7637,6 @@ img.err-price {
 .btn {
 	display: inline-block;
 	line-height: 14px;
-	height: 14px;
 	border-radius: 2px;
 	background: #F7F7F7;
 	text-align: center;

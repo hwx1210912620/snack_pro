@@ -37,4 +37,8 @@
         delete from sudi_shopcart where shopcartId=#{shopcartId}
     </delete>
 
+    <!-- 清空某个用户的购物车 -->
+    <delete id="clearShopcart">
+        delete from sudi_shopcart where userId=#{userId}
+    </delete>
 </mapper>

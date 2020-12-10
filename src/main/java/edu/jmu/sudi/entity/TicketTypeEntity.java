@@ -1,6 +1,7 @@
 package edu.jmu.sudi.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -11,8 +12,8 @@ public class TicketTypeEntity implements Serializable {
 
     private Long ticketTypeId;
     private String ticketName;
-    private Integer requirement;
-    private Integer cheap;
+    private BigDecimal requirement;
+    private BigDecimal cheap;
     private Integer ticketNum;
     private Integer receive;
     private Integer liveTime;
@@ -37,19 +38,19 @@ public class TicketTypeEntity implements Serializable {
         this.ticketName = ticketName;
     }
 
-    public Integer getRequirement() {
+    public BigDecimal getRequirement() {
         return requirement;
     }
 
-    public void setRequirement(Integer requirement) {
+    public void setRequirement(BigDecimal requirement) {
         this.requirement = requirement;
     }
 
-    public Integer getCheap() {
+    public BigDecimal getCheap() {
         return cheap;
     }
 
-    public void setCheap(Integer cheap) {
+    public void setCheap(BigDecimal cheap) {
         this.cheap = cheap;
     }
 

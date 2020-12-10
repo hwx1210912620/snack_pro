@@ -40,4 +40,11 @@ public interface AddressService {
      * @return
      */
     public Map<String, Object> deleteAddress(Long addressId);
+
+    /**
+     * 查找该角色的所有地址信息，返回Map集合形式
+     * @param session
+     * @return
+     */
+    public Map<String, Object> findAddressListByUser(HttpSession session);
 }

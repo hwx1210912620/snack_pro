@@ -24,13 +24,24 @@ public class AddressController {
     private AddressService addressService;
 
     /**
-     * 查找该角色的所有地址信息
+     * 查找该角色的所有地址信息，返回LayUI数据表格格式
      */
     @RequestMapping("/list")
     public String findAddressListByUserId(AddressVo vo, HttpSession session){
         vo.setUserId(((UserEntity) session.getAttribute("userLogin")).getUserId());
         LayuiTableDataResult addressListByUserId = addressService.findAddressListByUserId(vo);
         return JSON.toJSONString(addressListByUserId);
+    }
+
+    /**
+     * 查找该角色的所有地址信息，返回Map格式
+     * @param session
+     * @return
+     */
+    @RequestMapping("/listByUser")
+    public String findAddressListByUser(HttpSession session){
+        Map<String, Object> map = addressService.findAddressListByUser(session);
+        return JSON.toJSONString(map);
     }
 
     /**

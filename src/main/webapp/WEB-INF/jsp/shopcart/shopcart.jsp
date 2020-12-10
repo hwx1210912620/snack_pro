@@ -103,8 +103,8 @@
                         {{# var shopcartId = "shopcartId_" + item.shopcartId; }}
                             <div class="gwlb" id={{ shopcartId }}>
                             {{# var background = "background:url(${pageContext.request.contextPath}/upload/"+ item.foodImage + ") center center no-repeat;"; }}
-                                <a href="#" class="gw-tu" style={{ background }}></a>
-                                <div class="gw-jk"><a href="#">{{ item.skuName }}</a></div>
+                                <a href="javascript:void(0)" class="gw-tu" style={{ background }}></a>
+                                <div class="gw-jk"><a href="javascript:void(0)" style="font-size: 14px;color: #333333;">{{ item.skuName }}</a></div>
                                 <div class="gw-jg">{{ item.skuPrice }}元</div>
                                 <div class="gw-sl">
                                     <a href="javascript:void(0);" class="gw-sl1 lf reduce-btn" id="reduce-btn">-</a>
@@ -118,7 +118,6 @@
                                 <a href="javascript:void(0)" class="shanc" id={{ deleteBtn }} style="margin-right: 6px;margin-top: -6px;">×</a>
                             </div>
                     {{# }) }}
-
             </div>
             <div class="gwzj">
                 <div class="lf chjx">
@@ -126,13 +125,12 @@
                 </div>
                 <div class="rf">
                     <div class="lf chhj">合计：<span id="zongjiage">{{ zongjiage }}</span>元</div>
-                    <a href="heduixinxi.html" class="jie"><span>去结算</span><span>去结算</span></a>
+                    <a href="javascript:void(0)" class="jie"><span>去结算</span><span>去结算</span></a>
                 </div>
             </div>
         </div>
                 {{# }else { }}
                     <img src="${pageContext.request.contextPath}/static/resources/images/emptyShopcart.png" style="height: 265px;margin: 0 auto;">
-
                 {{# } }}
     </script>
 
@@ -213,9 +211,14 @@
                         layer.close(index);
                     });
                 });
+
+                /**
+                 * 监听结算按钮的点击事件
+                 */
+                $(".jie").click(function () {
+                    location.href = "${pageContext.request.contextPath}/reception/generateOrder.html";
+                });
             }, "json");
-
-
         });
     </script>
 

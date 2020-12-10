@@ -56,4 +56,14 @@
     <select id="findFoodSkuListByFoodId" resultType="edu.jmu.sudi.entity.FoodSkuEntity">
         select * from sudi_view_foodsku where foodId=#{foodId};
     </select>
+
+    <!-- 根据skuId查找菜品spu -->
+    <select id="findFoodSkuBySkuId" resultType="edu.jmu.sudi.entity.FoodSkuEntity">
+        select * from sudi_view_foodsku where skuId=#{skuId}
+    </select>
+
+    <!-- 增加某个菜品的SKU销量 -->
+    <update id="addSkuSale">
+        update sudi_foodsku set skuSale=skuSale+#{skuSale} where skuId=#{skuId}
+    </update>
 </mapper>

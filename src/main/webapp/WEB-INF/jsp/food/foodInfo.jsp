@@ -12,47 +12,9 @@
         <link href="${pageContext.request.contextPath}/static/plugins/Ruidan_Page/css/amazeui.min.css" rel="stylesheet" />
         <script src="${pageContext.request.contextPath}/static/plugins/Ruidan_Page/js/amazeui.min.js"></script>
         <link href="${pageContext.request.contextPath}/static/plugins/Ruidan_Page/css/fanda.css" type="text/css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/static/resources/css/foodInfo.css" type="text/css" rel="stylesheet">
         <script src="${pageContext.request.contextPath}/static/plugins/Ruidan_Page/js/MagicZoom.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/static/plugins/Ruidan_Page/js/ShopShow.js"></script>
-        <script type="text/javascript">
-            <!--
-            var timeout         = 500;
-            var closetimer		= 0;
-            var ddmenuitem      = 0;
-            // open hidden layer
-            function mopen(id)
-            {
-                // cancel close timer
-                mcancelclosetime();
-                // close old layer
-                if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-                // get new layer and show it
-                ddmenuitem = document.getElementById(id);
-                ddmenuitem.style.visibility = 'visible';
-            }
-            // close showed layer
-            function mclose()
-            {
-                if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-            }
-            // go close timer
-            function mclosetime()
-            {
-                closetimer = window.setTimeout(mclose, timeout);
-            }
-            // cancel close timer
-            function mcancelclosetime()
-            {
-                if(closetimer)
-                {
-                    window.clearTimeout(closetimer);
-                    closetimer = null;
-                }
-            }
-            // close layer when click-out
-            document.onclick = mclose;
-            // -->
-        </script>
         <style>
             .one_qcode{
                 position:absolute;
@@ -68,12 +30,55 @@
                 margin:0 auto;
             }
         </style>
+        <script>
+            function formatDateTime(inputTime) {
+                var date = new Date(inputTime);
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                m = m < 10 ? ('0' + m) : m;
+                var d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                var h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                minute = minute < 10 ? ('0' + minute) : minute;
+                second = second < 10 ? ('0' + second) : second;
+                return y + '-' + m + '-' + d+'  '+h+':'+minute+':'+second;
+            };
+        </script>
     </head>
     <body>
         <div id="view"></div>
 
+        <!-- 用户评论 -->
+        <div id="Comments"></div>
+
         <div class="qing banq" style="margin-bottom:20px;">闽ICP备201721086021号 Copyright 宿递By <font color="#1aa094"><b>LiangJ</b></font>，All Rights Reserved</div>
     </body>
+
+    <script id="commentTemplate" type="text/html">
+        <div class="qing juzhong">
+            <div class="lf tu-prk" style="width: 100%;">
+                <div class="tu-pr">
+                    <div class="tu-pr-ti">
+                        <a href="javascript:void(0)" name="q1" class="tinn">用户评论（{{ d.list[0].commentCount }}条评论）</a>
+                    </div>
+                    <div class="qing cpxk shu12 layui-form-item" style="padding: 22px 30px 22px;line-height: 28px;position: relative">
+                        {{# layui.each(d.list, function(index, comment){ }}
+                            <div class="layui-col-md1 layui-inline comment-user">{{ comment.username }}：</div>
+                            <textarea class="content" readonly>{{ comment.commentContent }}</textarea>
+                            <div class="rate">{{ comment.commentScore }} <i class="layui-icon layui-icon-star-fill"></i></div>
+                            <div class="layui-inline been-buy">曾购买过{{ comment.skuName }}</div>
+                            <div class="commentTime">评论时间：{{ formatDateTime(comment.commentTime) }}</div>
+                            <hr style="color: #333333">
+                        {{# }) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
     <script id="demo" type="text/html">
         <!--页面标题 -->
         <div class="qing juzhong prbg" style="position: relative;">
@@ -90,7 +95,7 @@
                 <!--演示内容结束-->
             </div>
             <div style="position: absolute;right: 28px;top: 28px;">
-                <a href="${pageContext.request.contextPath}/reception/foodCenter.html">
+                <a href="javascript:window.history.go(-1);">
                     <button type="button" class="layui-btn layui-btn-primary" style="width: 80px;padding-right: 25px;">返 回<i class="layui-icon layui-icon-right" style="position: absolute;top: 2px;right: 5px;"></i></button>
                 </a>
             </div>
@@ -104,6 +109,15 @@
                 <div class="pr-jgk">
                     <div class="pr-jti" style="height: 28px;">
                         <b>价格：</b>￥<span id="skuPrice">{{ d.list.foodSkuList[0].skuPrice }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>已售<span id="skuSale">{{ d.list.foodSkuList[0].skuSale }}</span>件</strong>
+                    </div>
+                    <div class="pr-jck">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            {{# console.log(d.list.foodSpu) }}
+                            <tbody><tr>
+                                <td width="120"><div class="pr-jc"><div class="cuk">浏览量</div><div class="pr-jcf">浏览数：{{ d.list.foodSpu.foodViewCount }}次<span></span></div></div></td>
+                                <td width="140"><div class="pr-jc"><div class="cuk">销量</div><div class="pr-jcf">已售：{{ d.list.foodSpu.foodSaleCount }}份<span></span></div></div></td>
+                            </tr>
+                            </tbody></table>
                     </div>
                 </div>
                 <div class="qing">
@@ -139,7 +153,7 @@
             </div>
 
         </div>
-        <!--会员内容 -->
+        <!-- 菜品详情 -->
         <div class="qing juzhong">
             <div class="lf tu-prk" style="width: 100%;">
                 <div class="tu-pr">
@@ -168,16 +182,16 @@
 
             </div>
         </div>
-
     </script>
     <script src="${pageContext.request.contextPath}/static/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
     <script>
         //获取菜品编号参数
         var foodId = window.location.href.split("?")[1].split("=")[1];
 
-        layui.use(['form', 'table', 'jquery', 'layer', 'laytpl'], function () {
+        layui.use(['jquery', 'layer', 'laytpl', 'rate'], function () {
             var $ = layui.jquery,
                 layer = layui.layer,
+                rate = layui.rate,
                 laytpl = layui.laytpl;
 
             /**
@@ -192,8 +206,6 @@
                     "title":"Layui常用模块"
                     ,"list":result
                 }
-                console.log(templetData);
-
                 var getTpl = demo.innerHTML;
                 var view = document.getElementById('view');
                 laytpl(getTpl).render(templetData, function(html){
@@ -240,14 +252,34 @@
                         layer.msg(result.message);
                     }, "json");
                 });
+            }, "json");
 
-
+            /**
+             * 请求后端查询该菜品下的所有评论
+             */
+            $.post("${pageContext.request.contextPath}/reception/comment/findByFood", {foodId: foodId}, function (result) {
+                console.log(result);
+                if (result.flag){
+                    /**
+                     * 渲染模版
+                     * @type {{title: string, list: *}}
+                     */
+                    var templetData = { //数据
+                        "title":"Layui常用模块"
+                        ,"list":result.commentList
+                    }
+                    var getTpl = commentTemplate.innerHTML;
+                    var Comments = document.getElementById('Comments');
+                    laytpl(getTpl).render(templetData, function(html){
+                        Comments.innerHTML = html;
+                    });
+                }
 
             }, "json");
 
-
-
-
+            function rateRender(score) {
+                rate.render();
+            }
 
 
 

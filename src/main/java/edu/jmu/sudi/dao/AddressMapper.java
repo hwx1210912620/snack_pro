@@ -52,4 +52,11 @@ public interface AddressMapper {
      * @return
      */
     public Integer deleteAddress(Long addressId);
+
+    /**
+     * 根据地址编号查询地址
+     * @param addressId
+     * @return
+     */
+    public AddressEntity findAddressById(Long addressId);
 }

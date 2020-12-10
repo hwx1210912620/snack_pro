@@ -37,4 +37,9 @@
     <delete id="deleteAddress">
         delete from sudi_address where addressId=#{addressId}
     </delete>
+
+    <!-- 根据地址编号查询地址 -->
+    <select id="findAddressById" resultType="edu.jmu.sudi.entity.AddressEntity">
+        select * from sudi_address where addressId=#{addressId}
+    </select>
 </mapper>

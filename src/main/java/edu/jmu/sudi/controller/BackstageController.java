@@ -100,5 +100,39 @@ public class BackstageController {
         return "ticket/ticketManage";
     }
 
+    /**
+     * 跳转到订单分配管理界面
+     * @return
+     */
+    @RequestMapping("/orderAllocationManage.html")
+    public String orderAllocationManage(){
+        return "order/orderAllocationManage";
+    }
 
+    /**
+     * 跳转到订单配送界面
+     * @return
+     */
+    @RequestMapping("/orderDeliverManage.html")
+    public String orderDeliverManage(){
+        return "order/orderDeliverManage";
+    }
+
+    /**
+     * 跳转到配送员配送记录界面
+     * @return
+     */
+    @RequestMapping("/deliverRecord.html")
+    public String deliverRecord(){
+        return "deliver/deliverRecord";
+    }
+
+    /**
+     * 跳转到投诉中心页面
+     * @return
+     */
+    @RequestMapping("/complaintManage.html")
+    public String complaintManage(){
+        return "complaint/complaintManage";
+    }
 }

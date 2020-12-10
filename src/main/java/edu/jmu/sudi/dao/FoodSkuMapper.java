@@ -67,4 +67,19 @@ public interface FoodSkuMapper {
      * @return
      */
     public List<FoodSkuEntity> findFoodSkuListByFoodId(Long foodId);
+
+    /**
+     * 根据skuId查找菜品spu
+     * @param skuId
+     * @return
+     */
+    public FoodSkuEntity findFoodSkuBySkuId(Long skuId);
+
+    /**
+     * 增加某个菜品的SKU销量
+     * @param skuId
+     * @param skuSale
+     * @return
+     */
+    public Integer addSkuSale(@Param("skuId") Long skuId, @Param("skuSale") Integer skuSale);
 }

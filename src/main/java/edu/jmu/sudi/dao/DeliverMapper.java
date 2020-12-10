@@ -88,4 +88,45 @@ public interface DeliverMapper {
      * @return
      */
     public Integer findMaxFinishCount();
+
+    /**
+     * 查询正式的配送员信息(未离职且已实名)
+     * @return
+     */
+    public List<DeliverEntity> findFormalDeliver();
+
+    /**
+     * 根据配送员编号查询配送员信息
+     * @param deliverId
+     * @return
+     */
+    public DeliverEntity findDeliverById(String deliverId);
+
+    /**
+     * 该配送员的接单数+1
+     * @param deliverId
+     * @return
+     */
+    public Integer addOneOrderCount(String deliverId);
+
+    /**
+     * 该配送员的结单数+1
+     * @param userId
+     * @return
+     */
+    public Integer addOneFinishCount(Long userId);
+
+    /**
+     * 根据用户ID查找配送员
+     * @param userId
+     * @return
+     */
+    public DeliverEntity findDeliverByUser(Long userId);
+
+    /**
+     * 该配送员增加一个差评记录
+     * @param deliverId
+     * @return
+     */
+    public Integer addFaultCountOne(String deliverId);
 }

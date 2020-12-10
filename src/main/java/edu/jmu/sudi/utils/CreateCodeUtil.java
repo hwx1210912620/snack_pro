@@ -9,12 +9,13 @@ import java.util.Random;
  */
 public class CreateCodeUtil {
 
+    static Random random = new Random();
+
     /**
      * 生成配送员唯一Id
      * @return  入职的时间到毫秒+两个随机数
      */
     public static String createDeliverId(){
-        Random random = new Random();
         //获取当前时间
         Date date = new Date();
         String timeStr = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
@@ -22,6 +23,15 @@ public class CreateCodeUtil {
         return timeStr + "" + endNum;
     }
 
-
+    /**
+     * 生成唯一的订单编号 (D+时间戳+5位随机数)
+     * @return
+     */
+    public static String createOrderId(){
+        Date date = new Date();
+        String timeStr = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
+        String endNum = (int)(random.nextDouble()*(99999-10000 + 1)) + 10000 + "";
+        return "D" + timeStr + endNum;
+    }
 
 }

@@ -15,6 +15,72 @@
         <%-- 导入我自己写的样式 --%>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/resources/css/userInfo.css">
     </head>
+    <script>
+        function gender(gender){
+            if (gender == 1){
+                return "男";
+            }else if (gender == 2){
+                return "女";
+            }else {
+                return "未填写";
+            }
+        }
+
+        function formatDateTime(inputTime) {
+            var date = new Date(inputTime);
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            var h = date.getHours();
+            h = h < 10 ? ('0' + h) : h;
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            minute = minute < 10 ? ('0' + minute) : minute;
+            second = second < 10 ? ('0' + second) : second;
+            return y + '-' + m + '-' + d+'  '+h+':'+minute+':'+second;
+        };
+
+        function formatDate(inputTime) {
+            var date = new Date(inputTime);
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            return y + '-' + m + '-' + d;
+        };
+
+        var format = function(time, format) {
+            var t = new Date(time);
+            var tf = function(i) {
+                return (i < 10 ? '0' : '') + i
+            };
+            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function(a) {
+                switch (a) {
+                    case 'yyyy':
+                        return tf(t.getFullYear());
+                        break;
+                    case 'MM':
+                        return tf(t.getMonth() + 1);
+                        break;
+                    case 'mm':
+                        return tf(t.getMinutes());
+                        break;
+                    case 'dd':
+                        return tf(t.getDate());
+                        break;
+                    case 'HH':
+                        return tf(t.getHours());
+                        break;
+                    case 'ss':
+                        return tf(t.getSeconds());
+                        break;
+                }
+            });
+        }
+    </script>
     <body style="background: #ffffff">
         <%-- 个人资料卡片 --%>
         <div class="userInfoCard">
@@ -27,7 +93,7 @@
                 </button>
             </fieldset>
             <div class="layui-card" style="border: none;box-shadow: none;">
-                <div class="layui-card-body layui-text">
+                <div class="layui-card-body layui-text" id="myCard">
                     <table class="layui-table">
                         <colgroup>
                             <col width="100"><col>
@@ -39,21 +105,21 @@
                                 <th>手机号</th>
                                 <td>${sessionScope.userLogin.phone}</td>
                                 <th>性别</th>
-                                <td>${sessionScope.userLogin.gender}</td>
+                                <td id="gender"></td>
                             </tr>
                             <tr>
                                 <th>邮箱地址</th>
                                 <td>${sessionScope.userLogin.email}</td>
                                 <th>上次登录时间</th>
-                                <td>${sessionScope.userLogin.lastLoginTime}</td>
+                                <td id="lastLoginTime"></td>
                                 <th>积分</th>
                                 <td>${sessionScope.userLogin.score}</td>
                             </tr>
                             <tr>
                                 <th>注册日期</th>
-                                <td>${sessionScope.userLogin.registerDate}</td>
+                                <td id="registerDate"></td>
                                 <th>上次登出时间</th>
-                                <td>${sessionScope.userLogin.lastLogoutTime}</td>
+                                <td id="lastLogoutTime"></td>
                                 <th>登录次数</th>
                                 <td>${sessionScope.userLogin.loginCount}</td>
                             </tr>
@@ -66,32 +132,32 @@
 
         <%-- 四大按钮区域 --%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                <legend>
-                    <i class="fa fa-tags" style="color: #009688"></i>&nbsp;&nbsp;<font color="#009688">我的足迹</font>
-                </legend>
-                <div class="userinfo-area">
-                    <div class="layui-inline userinfo-img">
-                        <a href="#">
-                            <img src="${pageContext.request.contextPath}/static/resources/images/MyOrders.png">
-                        </a>
-                    </div>
-                    <div class="layui-inline userinfo-img">
-                        <a href="#">
-                            <img src="${pageContext.request.contextPath}/static/resources/images/MyCoupons.png">
-                        </a>
-                    </div>
-                    <div class="layui-inline userinfo-img">
-                        <a href="#">
-                            <img src="${pageContext.request.contextPath}/static/resources/images/MyComments.png">
-                        </a>
-                    </div>
-                    <div class="layui-inline userinfo-img">
-                        <a href="#">
-                            <img src="${pageContext.request.contextPath}/static/resources/images/MyComplaint.png">
-                        </a>
-                    </div>
+            <legend>
+                <i class="fa fa-tags" style="color: #009688"></i>&nbsp;&nbsp;<font color="#009688">我的足迹</font>
+            </legend>
+            <div class="userinfo-area">
+                <div class="layui-inline userinfo-img">
+                    <a href="${pageContext.request.contextPath}/reception/myOrder.html">
+                        <img src="${pageContext.request.contextPath}/static/resources/images/MyOrders.png">
+                    </a>
                 </div>
-            </fieldset>
+                <div class="layui-inline userinfo-img">
+                    <a href="${pageContext.request.contextPath}/reception/myTicket.html">
+                        <img src="${pageContext.request.contextPath}/static/resources/images/MyCoupons.png">
+                    </a>
+                </div>
+                <div class="layui-inline userinfo-img">
+                    <a href="${pageContext.request.contextPath}/reception/myComments.html">
+                        <img src="${pageContext.request.contextPath}/static/resources/images/MyComments.png">
+                    </a>
+                </div>
+                <div class="layui-inline userinfo-img">
+                    <a href="${pageContext.request.contextPath}/reception/myComplaint.html">
+                        <img src="${pageContext.request.contextPath}/static/resources/images/MyComplaint.png">
+                    </a>
+                </div>
+            </div>
+        </fieldset>
 
         <%-- 用户地址管理区域 --%>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -211,6 +277,10 @@
     </body>
     <script src="${pageContext.request.contextPath}/static/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 
+    <script type="text/html" id="demo2">
+
+    </script>
+
     <%-- 编写模版。使用一个script标签存放模板 --%>
     <script id="demo" type="text/html">
         <fieldset class="layui-elem-field layui-field-title userinfo-field" style="margin-top: 20px;">
@@ -230,11 +300,17 @@
     </script>
 
     <script>
+        document.getElementById("gender").innerHTML = gender(${sessionScope.userLogin.gender});
+        document.getElementById("lastLoginTime").innerHTML = formatDateTime(new Date("${sessionScope.userLogin.lastLoginTime}"));
+        document.getElementById("lastLogoutTime").innerHTML = formatDateTime(new Date("${sessionScope.userLogin.lastLogoutTime}"));
+        document.getElementById("registerDate").innerHTML = formatDate(new Date("${sessionScope.userLogin.registerDate}"));
+
         layui.use(['jquery', 'laytpl', 'layer', 'form', 'laydate', 'table'], function() {
             var $ = layui.jquery,
                 form = layui.form,
                 laydate = layui.laydate,
                 table = layui.table,
+                laytpl = layui.laytpl,
                 layer = layui.layer;
 
             var url;//提交的请求地址

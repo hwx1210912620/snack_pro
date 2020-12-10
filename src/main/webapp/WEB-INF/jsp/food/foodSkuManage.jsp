@@ -57,12 +57,12 @@
                                         <input type="text" name="skuPrice" autocomplete="off" class="layui-input" onkeyup="clearNoNum(this)">
                                     </div>
                                 </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">菜品供量</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" name="skuStock" autocomplete="off" class="layui-input" onkeyup="value.replace(/[^0-9]/g,'')">
-                                    </div>
-                                </div>
+                                <%--<div class="layui-inline">--%>
+                                <%--    <label class="layui-form-label">菜品供量</label>--%>
+                                <%--    <div class="layui-input-inline">--%>
+                                <%--        <input type="text" name="skuStock" autocomplete="off" class="layui-input" onkeyup="value.replace(/[^0-9]/g,'')">--%>
+                                <%--    </div>--%>
+                                <%--</div>--%>
                                 <div class="layui-inline">
                                     <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn">
                                         <i class="layui-icon layui-icon-search"></i>搜索
@@ -139,12 +139,12 @@
                                     <input type="text" placeholder="请输入SKU价格" autocomplete="off" class="layui-input" name="skuPrice" id="skuPrice" onkeyup="clearNoNum(this)">
                                 </div>
                             </div>
-                            <div class="layui-inline layui-col-md6 my-inline" style="margin-right: 0px;">
-                                <label class="layui-form-label">SKU库存</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" placeholder="请输入SKU库存" autocomplete="off" class="layui-input" name="skuStock" id="skuStock" onkeyup="value.replace(/[^0-9]/g,'')">
-                                </div>
-                            </div>
+                            <%--<div class="layui-inline layui-col-md6 my-inline" style="margin-right: 0px;">--%>
+                            <%--    <label class="layui-form-label">SKU库存</label>--%>
+                            <%--    <div class="layui-input-inline">--%>
+                            <%--        <input type="text" placeholder="请输入SKU库存" autocomplete="off" class="layui-input" name="skuStock" id="skuStock" onkeyup="value.replace(/[^0-9]/g,'')">--%>
+                            <%--    </div>--%>
+                            <%--</div>--%>
                         </div>
                         <div class="layui-form-item layui-row layui-col-md12">
                             <div class="layui-input-block" style="text-align: center">
@@ -197,13 +197,13 @@
                             return "<font color='#ff7f50'>未完善</font>";
                         else return d.skuPrice;
                     }},
-                    {field: 'skuStock', minWidth: 140, title: 'SKU供量', align: "center", templet: function (d){
-                        if (d.skuStock == 0)
-                            return "<font color='red'>已售罄</font>";
-                        if (d.skuStock < 5)
-                            return "<font color='#ff7f50'>库存紧张</font>"
-                        else return d.skuStock;
-                    }},
+                    // {field: 'skuStock', minWidth: 140, title: 'SKU供量', align: "center", templet: function (d){
+                    //     if (d.skuStock == 0)
+                    //         return "<font color='red'>已售罄</font>";
+                    //     if (d.skuStock < 5)
+                    //         return "<font color='#ff7f50'>库存紧张</font>"
+                    //     else return d.skuStock;
+                    // }},
                     {title: '操作', width: 240, toolbar: '#currentTableBar', align: "center"}
                 ]],
                 limits: [10, 15, 20, 25, 50, 100],

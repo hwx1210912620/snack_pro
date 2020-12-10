@@ -73,4 +73,39 @@
     <select id="findOnshelfFoodByType" resultType="edu.jmu.sudi.entity.FoodEntity">
         select * from sudi_food where foodStatus=1 and foodTypeId=#{typeId};
     </select>
+
+    <!-- 查询所有上架的推荐菜品 -->
+    <select id="findRecommendFoodOnShelf" resultType="edu.jmu.sudi.entity.FoodEntity">
+        select * from sudi_view_foodspu where foodStatus=1 and recommend=1
+    </select>
+
+    <!-- 查询所有上架的热销菜品 -->
+    <select id="findHotSaleFoodOnShelf" resultType="edu.jmu.sudi.entity.FoodEntity">
+        select * from sudi_view_foodspu where foodStatus=1 and hotSale=1
+    </select>
+
+    <!-- 增加某个菜品SPU的销量 -->
+    <update id="addSaleCount">
+        update sudi_food set foodSaleCount=foodSaleCount+#{amount} where foodId=#{foodId}
+    </update>
+
+    <!-- 增加一条该菜品的评论数 -->
+    <update id="addCommentCountOne">
+        update sudi_food set commentCount=commentCount+1 where foodId=#{foodId}
+    </update>
+
+    <!-- 修改菜品的分数 -->
+    <update id="changeFoodScore">
+        update sudi_food set foodScore=#{foodScore} where foodId=#{foodId}
+    </update>
+
+    <!-- 该菜品浏览量+1 -->
+    <update id="addViewCountOne">
+        update sudi_food set foodViewCount=foodViewCount+1 where foodId=#{foodId}
+    </update>
+
+    <!-- 该菜品的差评数量+1 -->
+    <update id="addFaultCountOne">
+        update sudi_food set foodFaultCount=foodFaultCount+1 where foodId=#{foodId}
+    </update>
 </mapper>

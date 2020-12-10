@@ -300,12 +300,33 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Map<String, Object> findFoodInfoById(Long foodId) {
         Map<String, Object> map = new HashMap<>(16);
+        //该菜品浏览量+1
+        foodMapper.addViewCountOne(foodId);
         List<FoodvalueEntity> foodvalueList = foodvalueMapper.findFoodvalueListByFoodId(foodId);
         map.put("foodvalueList", foodvalueList);
         List<FoodSkuEntity> foodSkuList = foodSkuMapper.findFoodSkuListByFoodId(foodId);
         map.put("foodSkuList", foodSkuList);
         FoodEntity foodSpu = foodMapper.findFoodById(foodId);
         map.put("foodSpu", foodSpu);
+        return map;
+    }
+
+    /**
+     * 查询所有上架的推荐和热销菜品
+     * @return
+     */
+    @Override
+    public Map<String, Object> findRecommendAndHotSaleFood() {
+        Map<String, Object> map = new HashMap<>(16);
+        List<FoodEntity> recommendFoodOnShelf = foodMapper.findRecommendFoodOnShelf();
+        List<FoodEntity> hotSaleFoodOnShelf = foodMapper.findHotSaleFoodOnShelf();
+        if (hotSaleFoodOnShelf!=null && recommendFoodOnShelf!=null){
+            map.put(SystemConstant.FLAG, true);
+            map.put("recommendFoodList", recommendFoodOnShelf);
+            map.put("hotSaleFoodList", hotSaleFoodOnShelf);
+        }else {
+            map.put(SystemConstant.FLAG, false);
+        }
         return map;
     }
 }

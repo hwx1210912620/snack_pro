@@ -5,6 +5,7 @@ import edu.jmu.sudi.vo.FoodVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -79,4 +80,52 @@ public interface FoodMapper {
      */
     public List<FoodEntity> findOnshelfFoodByType(Long typeId);
 
+    /**
+     * 查询所有上架的推荐菜品
+     * @return
+     */
+    public List<FoodEntity> findRecommendFoodOnShelf();
+
+    /**
+     * 查询所有上架的热销菜品
+     * @return
+     */
+    public List<FoodEntity> findHotSaleFoodOnShelf();
+
+    /**
+     * 增加某个菜品SPU的销量
+     * @param foodId
+     * @param amount
+     * @return
+     */
+    public Integer addSaleCount(@Param("foodId") Long foodId, @Param("amount") Integer amount);
+
+    /**
+     * 修改菜品的分数
+     * @param foodId
+     * @param foodScore
+     * @return
+     */
+    public Integer changeFoodScore(@Param("foodId") Long foodId, @Param("foodScore") BigDecimal foodScore);
+
+    /**
+     * 增加一条该菜品的评论数
+     * @param foodId
+     * @return
+     */
+    public Integer addCommentCountOne(Long foodId);
+
+    /**
+     * 该菜品浏览量+1
+     * @param foodId
+     * @return
+     */
+    public Integer addViewCountOne(Long foodId);
+
+    /**
+     * 该菜品的差评数量+1
+     * @param foodId
+     * @return
+     */
+    public Integer addFaultCountOne(Long foodId);
 }

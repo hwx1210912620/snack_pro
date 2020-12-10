@@ -63,4 +63,11 @@ public interface ShopcartMapper {
      * @return
      */
     public Integer deleteShopcart(Long shopcartId);
+
+    /**
+     * 清空某个用户的购物车
+     * @param userId
+     * @return
+     */
+    public Integer clearShopcart(Long userId);
 }

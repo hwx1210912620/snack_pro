@@ -55,4 +55,24 @@ public interface TicketService {
      */
     public Map<String, Object> returnScore(Long ticketId, HttpSession session);
 
+    /**
+     * 查询某个用户的优惠券记录
+     * @param session
+     * @return
+     */
+    public Map<String, Object> findByUser(HttpSession session);
+
+    /**
+     * 查询该用户未使用的优惠券
+     * @param session
+     * @return
+     */
+    public Map<String, Object> findByUserUnuse(HttpSession session);
+
+    /**
+     * 根据优惠券编号查询优惠券
+     * @param ticketId
+     * @return
+     */
+    public Map<String, Object> findTicketById(Long ticketId);
 }

@@ -42,6 +42,37 @@ public class TicketController {
         return JSON.toJSONString(map);
     }
 
+    /**
+     * 查询某个用户的优惠券记录
+     * @param session
+     * @return
+     */
+    @RequestMapping("/findByUser")
+    public String findByUser(HttpSession session){
+        Map<String, Object> map = ticketService.findByUser(session);
+        return JSON.toJSONString(map);
+    }
 
+    /**
+     * 查询该用户未使用的优惠券
+     * @param session
+     * @return
+     */
+    @RequestMapping("/findByUserUnuse")
+    public String findByUserUnuse(HttpSession session){
+        Map<String, Object> map = ticketService.findByUserUnuse(session);
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 根据优惠券编号查询优惠券
+     * @param ticketId
+     * @return
+     */
+    @RequestMapping("/findTicketById")
+    public String findTicketById(Long ticketId){
+        Map<String, Object> map = ticketService.findTicketById(ticketId);
+        return JSON.toJSONString(map);
+    }
 
 }

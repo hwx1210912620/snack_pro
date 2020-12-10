@@ -169,6 +169,10 @@
                                 </a>
                                 <div class="ypmc">
                                     <a href={{ foodInfoPath }} style="letter-spacing:1px;font-size: 22px;color: #333333;padding-left: 8px;">{{ food.foodName }}</a>
+                                    <div style="float: right;margin-right: 10px;padding: 0px;color: #ffb800;font-size: 16px;font-weight: bold">
+                                        {{ (food.foodScore).toFixed(1) }}
+                                        <span class="layui-icon layui-icon-star-fill" style="color: #ffb800"></span>
+                                    </div>
                                 </div>
                                 <div style="border:1px solid #1e9fff;border-radius: 50px; height: 45px;color: #1e9fff;">
                                     <a href={{ foodInfoPath }} style="color: #1e9fff;">

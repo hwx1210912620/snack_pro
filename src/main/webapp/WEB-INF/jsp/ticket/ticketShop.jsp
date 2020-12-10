@@ -118,7 +118,6 @@
             <div style="background:#f8f8f8;padding: 0; width:1200px; margin:10px auto">
                 <ul class="coupon-list" id="couponListUl">
 
-
                     <div id="view"></div>
 
                 </ul>

@@ -97,4 +97,15 @@ public class MySystemTest {
         foodService.generateSku(foodParamList, 1l, "牛肉");
     }
 
+    /**
+     * 测试自动生成订单编号
+     */
+    @Test
+    public void test7(){
+        String orderId = CreateCodeUtil.createOrderId();
+        //D 20201204 154659 98283
+        //D 20201204 154730 57201
+        //D 20201204 154756 81797
+        System.out.println(orderId);
+    }
 }

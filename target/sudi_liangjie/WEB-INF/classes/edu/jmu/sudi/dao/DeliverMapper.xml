@@ -74,4 +74,34 @@
         select max(finishCount) from sudi_deliver
     </select>
 
+    <!-- 查询正式的配送员信息(未离职且已实名) -->
+    <select id="findFormalDeliver" resultType="edu.jmu.sudi.entity.DeliverEntity">
+        select * from sudi_view_deliver where leaveDate is null and realName is not null
+    </select>
+
+    <!-- 根据配送员编号查询配送员信息 -->
+    <select id="findDeliverById" resultType="edu.jmu.sudi.entity.DeliverEntity">
+        select * from sudi_view_deliver where deliverId=#{deliverId}
+    </select>
+
+    <!-- 该配送员的接单数+1 -->
+    <update id="addOneOrderCount">
+        update sudi_deliver set orderCount=orderCount+1 where deliverId=#{deliverId}
+    </update>
+
+    <!-- 该配送员的结单数+1 -->
+    <update id="addOneFinishCount">
+        update sudi_deliver set finishCount=finishCount+1 where userId=#{userId}
+    </update>
+
+    <!-- 根据用户ID查找配送员 -->
+    <select id="findDeliverByUser" resultType="edu.jmu.sudi.entity.DeliverEntity">
+        select * from sudi_view_deliver where userId=#{userId}
+    </select>
+
+    <!-- 该配送员增加一个差评记录 -->
+    <update id="addFaultCountOne">
+        update sudi_deliver set faultCount=faultCount+1 where deliverId=#{deliverId}
+    </update>
+
 </mapper>

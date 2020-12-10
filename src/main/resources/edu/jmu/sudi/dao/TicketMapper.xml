@@ -49,4 +49,19 @@
     <update id="setOutTime">
         update sudi_ticket set ticketStatus=3 where ticketId=#{ticketId}
     </update>
+
+    <!-- 查询某个用户的优惠券记录 -->
+    <select id="findByUser" resultType="edu.jmu.sudi.entity.TicketEntity">
+        select * from sudi_view_ticket where userId=#{userId} order by ticketStatus
+    </select>
+    
+    <!-- 查询该用户未使用的优惠券 -->
+    <select id="findByUserUnuse" resultType="edu.jmu.sudi.entity.TicketEntity">
+        select * from sudi_view_ticket where userId=#{userId} and ticketStatus=1;
+    </select>
+
+    <!-- 将某张优惠券的状态设置为已使用 -->
+    <update id="ticketUsed">
+        update sudi_ticket set ticketStatus=2 where ticketId=#{ticketId}
+    </update>
 </mapper>

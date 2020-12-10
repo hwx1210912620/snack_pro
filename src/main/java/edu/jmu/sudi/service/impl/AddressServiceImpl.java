@@ -110,4 +110,24 @@ public class AddressServiceImpl implements AddressService {
         }
         return map;
     }
+
+    /**
+     * 查找该角色的所有地址信息，返回Map集合形式
+     * @param session
+     * @return
+     */
+    @Override
+    public Map<String, Object> findAddressListByUser(HttpSession session) {
+        Map<String, Object> map = new HashMap<>(16);
+        AddressVo vo = new AddressVo();
+        vo.setUserId(((UserEntity) session.getAttribute(SystemConstant.USERLOGIN)).getUserId());
+        List<AddressEntity> addressList = addressMapper.findAddressListByUserId(vo);
+        if (addressList != null) {
+           map.put(SystemConstant.FLAG, true);
+           map.put("addressList", addressList);
+        }else {
+            map.put(SystemConstant.FLAG, false);
+        }
+        return map;
+    }
 }
