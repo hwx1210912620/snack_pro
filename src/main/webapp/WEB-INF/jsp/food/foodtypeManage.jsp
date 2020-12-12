@@ -76,9 +76,6 @@
                 <%-- 表格行工具栏 --%>
                 <script type="text/html" id="currentTableBar">
                     {{# if(!flag){ }}
-                    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete" id="delete">
-                        <i class="layui-icon layui-icon-delete"></i>删除
-                    </a>
                     <a class="layui-btn layui-btn-xs layui-btn data-count-delete" lay-event="onShelf" id="onShelf">
                         <i class="layui-icon layui-icon-play"></i>上架
                     </a>

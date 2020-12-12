@@ -33,8 +33,6 @@
                 <div><a><img src="${pageContext.request.contextPath}/static/resources/images/banner1.png"></a></div>
                 <div><a><img src="${pageContext.request.contextPath}/static/resources/images/banner2.png"></a></div>
                 <div><a><img src="${pageContext.request.contextPath}/static/resources/images/banner3.png"></a></div>
-                <div><a><img src="${pageContext.request.contextPath}/static/resources/images/banner4.png"></a></div>
-                <div><a><img src="${pageContext.request.contextPath}/static/resources/images/banner5.png"></a></div>
             </div>
         </div>
 

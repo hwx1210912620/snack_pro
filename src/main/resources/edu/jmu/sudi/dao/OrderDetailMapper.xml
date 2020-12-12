@@ -4,8 +4,8 @@
 
     <!-- 生成订单细则 -->
     <insert id="generateOrderDetail">
-        insert into sudi_orderdetail(orderId, skuId, amount, itemPrice)
-        values (#{orderId}, #{skuId}, #{amount}, #{itemPrice})
+        insert into sudi_orderdetail(orderId, skuId, amount, itemPrice, comment)
+        values (#{orderId}, #{skuId}, #{amount}, #{itemPrice}, 2)
     </insert>
 
     <!-- 根据订单编号查询订单细则列表 -->

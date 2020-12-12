@@ -93,6 +93,8 @@ public class FoodTypeManageController {
         return JSON.toJSONString(map);
     }
 
+
+
     /**
      * 查询所有的菜品类别
      * @return
