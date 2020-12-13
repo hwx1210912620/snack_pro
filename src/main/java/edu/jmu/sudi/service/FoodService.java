@@ -114,4 +114,5 @@ public interface FoodService {
      * @return
      */
     public Map<String, Object> findRecommendAndHotSaleFood();
+
 }

@@ -27,6 +27,7 @@ public class FoodEntity extends FoodTypeEntity implements Serializable {
     private Integer foodStatus;
     private String lastModifyBy;
     private Date lastModifyTime;
+    private Integer dayStock;
 
     public Long getFoodId() {
         return foodId;
@@ -166,5 +167,13 @@ public class FoodEntity extends FoodTypeEntity implements Serializable {
     @Override
     public void setLastModifyTime(Date lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
+    }
+
+    public Integer getDayStock() {
+        return dayStock;
+    }
+
+    public void setDayStock(Integer dayStock) {
+        this.dayStock = dayStock;
     }
 }

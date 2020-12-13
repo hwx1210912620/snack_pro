@@ -47,7 +47,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private DeliverMapper deliverMapper;
 
-
+    /**
+     * 生成订单
+     * @param map
+     * @param session
+     * @return
+     */
     @Override
     public Map<String, Object> generateOrder(Map<String, Object> map, HttpSession session) {
         Map<String, Object> map1 = new HashMap<>(16);
@@ -63,6 +68,22 @@ public class OrderServiceImpl implements OrderService {
             order.setTicketId(Long.parseLong((String) map.get("ticketId")));
             order.setCheap(ticketMapper.findTicketById(Long.parseLong((String) map.get("ticketId"))).getCheap());
         }
+        //1.3 获取当前用户的购物车，判断日供量
+        List<ShopcartEntity> shopcart = shopcartMapper.findAllShopcartByUserId(order.getUserId());
+        for (ShopcartEntity shopcartEntity : shopcart) {
+            //1. 查找当日该菜品剩余供量
+            Integer todaySale = orderMapper.findTodaySale(shopcartEntity.getFoodId());
+            //2. 判断购买量是否大于剩余供量
+            if (shopcartEntity.getNumCount() > shopcartEntity.getDayStock()-todaySale){
+                //2.1 购买量大于剩余供量：提示供量不足
+                String msg = "很抱歉，【" + shopcartEntity.getFoodName() + "】供量不足您的" + shopcartEntity.getNumCount() + "需求";
+                map.put(SystemConstant.MESSAGE, msg);
+                return map;
+            }else if (shopcartEntity.getNumCount() == shopcartEntity.getDayStock()-todaySale){
+                //2.2 购买量等于剩余供量：允许购买，并且下架菜品
+                foodMapper.foodOffShelf(shopcartEntity.getFoodId(), "自动下架");
+            }
+        }
 
         try {
             //1.2 生成订单
@@ -71,8 +92,7 @@ public class OrderServiceImpl implements OrderService {
             }
             Integer totalCount = 0;
             BigDecimal totalPrice = new BigDecimal(0);
-            //1.3 获取当前用户的购物车，生成订单细则
-            List<ShopcartEntity> shopcart = shopcartMapper.findAllShopcartByUserId(order.getUserId());
+            //根据当前用户的购物车，生成订单细则
             for (ShopcartEntity item : shopcart) {
                 OrderDetailEntity orderDetail = new OrderDetailEntity();
                 orderDetail.setSkuId(item.getSkuId());

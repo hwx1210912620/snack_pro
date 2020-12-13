@@ -21,8 +21,8 @@
             select last_insert_id()
         </selectKey>
         insert into sudi_food
-        (foodName, foodTypeId, foodIngredient, foodCookWay, foodVegon, foodDesc, foodImage, recommend, hotSale, lastModifyBy, lastModifyTime)
-        values (#{foodName},#{typeId},#{foodIngredient}, #{foodCookWay},#{foodVegon},#{foodDesc},#{foodImage},#{recommend},#{hotSale},#{lastModifyBy},NOW())
+        (foodName, foodTypeId, foodIngredient, foodCookWay, foodVegon, foodDesc, foodImage, recommend, hotSale, lastModifyBy, lastModifyTime, dayStock)
+        values (#{foodName},#{typeId},#{foodIngredient}, #{foodCookWay},#{foodVegon},#{foodDesc},#{foodImage},#{recommend},#{hotSale},#{lastModifyBy},NOW(),#{dayStock})
     </insert>
 
     <!-- 修改菜品SPU信息 -->
@@ -37,6 +37,7 @@
             <if test="foodImage!=null and foodImage!=''"> foodImage=#{foodImage}, </if>
             <if test="recommend!=null"> recommend=#{recommend}, </if>
             <if test="hotSale!=null"> hotSale=#{hotSale}, </if>
+            <if test="dayStock!=null"> dayStock=#{dayStock}, </if>
             <if test="foodDesc!=null and foodDesc!=''"> foodDesc=#{foodDesc}, </if>
             lastModifyBy=#{lastModifyBy},
             lastModifyTime=NOW(),

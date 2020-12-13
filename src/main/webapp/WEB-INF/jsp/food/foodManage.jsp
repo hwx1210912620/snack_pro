@@ -180,10 +180,16 @@
                         </div>
 
                         <div class="layui-form-item">
-                            <div class="layui-inline my-inline my-full-input">
+                            <div class="layui-inline my-inline layui-col-md8">
                                 <label class="layui-form-label">菜品配料</label>
-                                <div class="layui-input-inline" style="width: 85%">
+                                <div class="layui-input-inline" style="width: 77.5%">
                                     <input type="text" name="foodIngredient" placeholder="请输入菜品配料" autocomplete="off" class="layui-input" id="foodIngredient">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-col-md4 my-inline">
+                                <label class="layui-form-label"><font color="red"> * </font>每日供量</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="dayStock" lay-verify="required" autocomplete="off" class="layui-input" id="dayStock" placeholder="请输入每日供量"  onkeyup="value=value.replace(/[^0-9]/g,'')">
                                 </div>
                             </div>
                         </div>

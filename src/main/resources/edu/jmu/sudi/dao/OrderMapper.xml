@@ -65,4 +65,11 @@
     <update id="complainted">
         update sudi_order set complaint=1 where orderId=#{orderId}
     </update>
+
+    <!-- 查询当日某菜品的订货量 -->
+    <select id="findTodaySale" resultType="java.lang.Integer">
+        select count(*) from sudi_view_food_order
+        where to_days(orderTime) = to_days(now()) and foodId=#{foodId}
+    </select>
+
 </mapper>

@@ -108,4 +108,11 @@ public interface OrderMapper {
      * @return
      */
     public Integer complainted(String orderId);
+
+    /**
+     * 查询当日某菜品的订货量
+     * @param foodId
+     * @return
+     */
+    public Integer findTodaySale(Long foodId);
 }
