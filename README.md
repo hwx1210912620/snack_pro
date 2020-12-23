@@ -23,8 +23,7 @@
 
 #### 项目文件结构说明
 
-
-> database：数据库文件
+database：数据库文件
 src：项目源码
     main：主要源码包
         java：Java源码包
@@ -57,6 +56,8 @@ src：项目源码
     test：测试代码包
         edu.jmu.sudi.test：主要测试包
 target：编译字节码文件包
+
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1223/160337_eb9c9e04_7848439.png "Snipaste_2020-12-23_16-03-08.png")
 
 #### 使用说明
 
