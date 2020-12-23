@@ -23,40 +23,6 @@
 
 #### 项目文件结构说明
 
-database：数据库文件
-src：项目源码
-    main：主要源码包
-        java：Java源码包
-            edu.jmu.sudi
-                controller：控制器包（下属各个功能模块子包）
-                dao：持久层映射接口包
-                entity：实体类包（即domain或POJO）
-                interceptor：拦截器包
-                service：业务逻辑层包
-                    impl：业务逻辑层接口实现类包
-                utils：工具包
-                vo：ViewObject实体类视窗包
-        resources：项目配置文件以及映射文件包（附MyBatis映射文件）
-        webapp：网页文件包
-            WEB-INF：系统动态资源文件及网络项目配置包
-                jsp：JSP页面代码包（下属各个功能模块子包）
-            static：静态资源文件包
-                pages：静态页面包（异常报错友好提示页面）
-                plugins：静态资源插件包
-                    Ruidan_Page：瑞丹网页样式
-                    echarts：Apache ECharts数据可视化库插件
-                    jquery_sku：基于jquery的sku规格输入插件
-                    layui：layui框架
-                    layui_ext：基于LayUI的扩展插件
-                    layui_inputTag：基于LayUI的规格输入框插件
-                    productStore：productStore网页样式
-                resources：本项目静态资源包
-                    css：本项目CSS文件
-                    images：本项目基础图片包
-    test：测试代码包
-        edu.jmu.sudi.test：主要测试包
-target：编译字节码文件包
-
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/1223/160337_eb9c9e04_7848439.png "Snipaste_2020-12-23_16-03-08.png")
 
 #### 使用说明
