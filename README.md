@@ -23,7 +23,8 @@
 
 #### 项目文件结构说明
 
-database：数据库文件
+
+> database：数据库文件
 src：项目源码
     main：主要源码包
         java：Java源码包
