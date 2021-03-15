@@ -66,12 +66,14 @@
                     </div>
                     <div class="qing cpxk shu12 layui-form-item" style="padding: 22px 30px 22px;line-height: 28px;position: relative">
                         {{# layui.each(d.list, function(index, comment){ }}
+                        <div style="position: relative;">
                             <div class="layui-col-md1 layui-inline comment-user">{{ comment.username }}：</div>
                             <textarea class="content" readonly>{{ comment.commentContent }}</textarea>
-                            <div class="rate">{{ comment.commentScore }} <i class="layui-icon layui-icon-star-fill"></i></div>
+                            <div class="rate" style="position: absolute;left: 50px;top: 50px;">{{ comment.commentScore }} <i class="layui-icon layui-icon-star-fill"></i></div>
                             <div class="layui-inline been-buy">曾购买过{{ comment.skuName }}</div>
                             <div class="commentTime">评论时间：{{ formatDateTime(comment.commentTime) }}</div>
                             <hr style="color: #333333">
+                        </div>
                         {{# }) }}
                     </div>
                 </div>
